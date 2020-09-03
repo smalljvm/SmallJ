@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SmallJ">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Deploy/SmallJ.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

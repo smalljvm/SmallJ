@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ImageEditor">
+  <grid id="27dc6" binding="framePanel" layout-manager="BorderLayout" hgap="0" vgap="4">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="empty">
+      <size top="4" left="4" bottom="4" right="4"/>
+    </border>
+    <children>
+      <grid id="ac0a7" binding="colorPanel" layout-manager="BorderLayout" hgap="4" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="7080a" class="javax.swing.JButton" binding="colorButton">
+            <constraints border-constraint="West"/>
+            <properties>
+              <text value="Color"/>
+            </properties>
+          </component>
+          <component id="bc0a9" class="javax.swing.JTextField" binding="colorTextField">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <text value="Color[ 0, 0, 200 ]"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="52968" class="javax.swing.JButton" binding="closeButton">
+        <constraints border-constraint="South"/>
+        <properties>
+          <text value="Close"/>
+        </properties>
+      </component>
+      <scrollpane id="bd6" binding="imageScrollPane">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="fc93c" class="javax.swing.JLabel" binding="imageLabel">
+            <constraints/>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <icon value="SmallJIcon.png"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+    </children>
+  </grid>
+</form>

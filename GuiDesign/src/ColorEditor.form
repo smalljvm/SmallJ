@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ColorEditor">
+  <grid id="27dc6" binding="framePanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="42ef6" class="javax.swing.JTextField" binding="textField">
+        <constraints border-constraint="North"/>
+        <properties>
+          <text value="Color[ 0, 0, 200 ]"/>
+        </properties>
+      </component>
+      <component id="86da5" class="javax.swing.JButton" binding="selectButton">
+        <constraints border-constraint="South"/>
+        <properties>
+          <text value="Select"/>
+        </properties>
+      </component>
+      <component id="ebcc0" class="javax.swing.JLabel" binding="imageLabel">
+        <constraints border-constraint="Center"/>
+        <properties>
+          <horizontalAlignment value="0"/>
+          <icon value="Blue.png"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <grid id="10368" binding="scrollBarsPane" layout-manager="GridBagLayout">
+        <constraints border-constraint="West"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="4432e" class="javax.swing.JScrollBar" binding="redScrollBar">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="1.0"/>
+            </constraints>
+            <properties>
+              <maximum value="265"/>
+            </properties>
+          </component>
+          <component id="e2720" class="javax.swing.JScrollBar" binding="greenScrollBar">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="1.0"/>
+            </constraints>
+            <properties>
+              <maximum value="265"/>
+            </properties>
+          </component>
+          <component id="23ebe" class="javax.swing.JScrollBar" binding="blueScrollBar">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="1.0"/>
+            </constraints>
+            <properties>
+              <maximum value="265"/>
+              <value value="200"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

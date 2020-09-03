@@ -1,0 +1,25 @@
+{
+    "name": "smalltalk",
+    "displayName": "Smalltalk",
+    "description": "Smalltalk",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.45.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "smalltalk",
+            "aliases": ["Smalltalk", "smalltalk"],
+            "extensions": [".st"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "smalltalk",
+            "scopeName": "source.smalltalk",
+            "path": "./syntaxes/smalltalk.tmLanguage.json"
+        }]
+    }
+}

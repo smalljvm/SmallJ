@@ -1,0 +1,3 @@
+# Documentation ReadMe
+This folder contains SmallJ's system documentation.
+It needs to be expandend...

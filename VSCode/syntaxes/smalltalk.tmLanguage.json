@@ -1,0 +1,56 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Smalltalk",
+	"patterns": [
+		{ "include": "#strings" },
+		{ "include": "#constants" },
+		{ "include": "#keywords" },
+		{ "include": "#classes" },
+		{ "include": "#methods" },
+		{ "include": "#comments" }
+	],
+	"repository": {
+		"constants": {
+			"patterns": [
+				{	"name": "constant.character.smalltalk",
+					"match": "[$]."
+				},
+				{	"name": "constant.numeric.smalltalk",
+					"match": "[.]*\\b[0-9]+\\b"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.single.smalltalk",
+			"begin": "'",
+			"end": "'"
+		},
+		"keywords": {
+			"patterns": [
+				{	"name": "keyword.control.smalltalk",
+					"match": "\\b(self|super|nil|true|false|CLASS|META|METHOD)\\b"
+				}
+			]
+		},
+		"classes": {
+			"patterns": [
+				{	"name": "entity.name.class.smalltalk",
+					"match": "\\b[A-Z][A-Za-z0-9]*\\b"
+				}
+			]
+		},
+		"methods": {
+			"patterns": [
+				{	"name": "entity.name.function.smalltalk",
+					"match": "\\b[A-Za-z0-9]+\\b:"
+				}
+			]
+		},
+		"comments": {
+			"name": "comment.smalltalk",
+			"begin": "\"",
+			"end": "\""
+		}
+	},
+	"scopeName": "source.smalltalk"
+}

@@ -1,3 +1,11 @@
+# For now: Smallj.org Website
+Website/
+
+# Windows shortcuts, copies, scripts.
+*.lnk
+* - Copy*
+*.ps1
+
 # Compiled class file
 *.class
 
@@ -10,8 +18,11 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# Smalltalk testing is only a scratchpad now
+Smalltalk/Test
+
 # Package Files #
-*.jar
+# We need these: *.jar
 *.war
 *.nar
 *.ear

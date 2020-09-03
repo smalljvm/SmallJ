@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Inspector">
+  <grid id="27dc6" binding="notNeeded" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <tabbedpane id="204cb" binding="objectsTabbedPane">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="c5d0a" binding="objectPanel" layout-manager="BorderLayout" hgap="0" vgap="4">
+            <constraints>
+              <tabbedpane title="Color"/>
+            </constraints>
+            <properties/>
+            <border type="empty">
+              <size top="4" left="4" bottom="4" right="4"/>
+            </border>
+            <children>
+              <scrollpane id="8d01f" binding="variablesScrollPane">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="7925f" class="javax.swing.JTable" binding="variablesTable" custom-create="true">
+                    <constraints/>
+                    <properties>
+                      <name value="variablesTable"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <grid id="a10bd" binding="stringPanel" layout-manager="BorderLayout" hgap="4" vgap="0">
+                <constraints border-constraint="North"/>
+                <properties/>
+                <border type="none">
+                  <size top="4" left="4" bottom="4" right="4"/>
+                </border>
+                <children>
+                  <component id="3b362" class="javax.swing.JLabel" binding="stringLabel">
+                    <constraints border-constraint="West"/>
+                    <properties>
+                      <horizontalAlignment value="2"/>
+                      <text value="String"/>
+                    </properties>
+                  </component>
+                  <component id="4f0a1" class="javax.swing.JTextField" binding="stringTextField">
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <editable value="false"/>
+                      <text value="Color: [ 1, 22, 255 ]"/>
+                    </properties>
+                  </component>
+                  <component id="d71bc" class="javax.swing.JButton" binding="closeButton">
+                    <constraints border-constraint="East"/>
+                    <properties>
+                      <text value="x"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
+    </children>
+  </grid>
+</form>

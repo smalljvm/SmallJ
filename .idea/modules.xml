@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/GuiDesign/GuiDesign.iml" filepath="$PROJECT_DIR$/GuiDesign/GuiDesign.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SmallJ.iml" filepath="$PROJECT_DIR$/.idea/SmallJ.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VM/VM.iml" filepath="$PROJECT_DIR$/VM/VM.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Debugger">
+  <grid id="27dc6" binding="notNeeded" layout-manager="BorderLayout" hgap="0" vgap="4">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="empty">
+      <size top="4" left="4" bottom="4" right="4"/>
+    </border>
+    <children>
+      <tabbedpane id="af109" binding="frameTabbedPane">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="90b15" binding="contextTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Context"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="877a" binding="errorPanel" layout-manager="BorderLayout" hgap="4" vgap="0">
+                <constraints border-constraint="North"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="9ede2" class="javax.swing.JLabel" binding="errorLabel">
+                    <constraints border-constraint="West"/>
+                    <properties>
+                      <text value="Error"/>
+                    </properties>
+                  </component>
+                  <component id="f4f62" class="javax.swing.JTextField" binding="errorTextField">
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <background color="-328966"/>
+                      <editable value="false"/>
+                      <text value="Illegal color value"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <scrollpane id="c4c1d" binding="contextScrollPane">
+                <constraints border-constraint="West"/>
+                <properties/>
+                <border type="none" title="Call Stack"/>
+                <children>
+                  <component id="992f2" class="javax.swing.JList" binding="contextList">
+                    <constraints/>
+                    <properties>
+                      <font style="0"/>
+                      <model>
+                        <item value="error: - Color"/>
+                        <item value="red:green:blue: - Color"/>
+                        <item value="red:green:blue: - MetaColor"/>
+                        <item value="doIt - Undefined"/>
+                      </model>
+                      <selectionForeground color="-16777216"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <scrollpane id="a2a24" binding="argumentScrollPane">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none" title="Self &amp; Arguments"/>
+                <children>
+                  <component id="6875c" class="javax.swing.JList" binding="argumentList">
+                    <constraints/>
+                    <properties>
+                      <font style="0"/>
+                      <model>
+                        <item value="Color( nil, nil, nil )"/>
+                        <item value="1"/>
+                        <item value="22"/>
+                        <item value="333"/>
+                      </model>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
+          </grid>
+          <grid id="c5148" binding="inspectorTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Color"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </tabbedpane>
+    </children>
+  </grid>
+</form>
