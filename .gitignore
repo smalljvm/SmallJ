@@ -18,6 +18,9 @@ Website/
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# Personal messages
+Feedback/
+
 # Smalltalk testing is only a scratchpad now
 Smalltalk/Test
 
