@@ -49,7 +49,7 @@ public class SmallJApp
 
 		UIManager.getLookAndFeelDefaults().put( "defaultFont", defaultFont );
 
-		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
 		while( keys.hasMoreElements() ) {
 			Object key = keys.nextElement();
 			Object object = UIManager.get( key );

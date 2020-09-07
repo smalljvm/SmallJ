@@ -2,6 +2,10 @@
 
 When implementing these, GitHub issues should be made first.
 
+- VSCode resource folder should be set, so logo is shown.
+
+- VSCode generated JAR does not work. (Starting from IDE works)
+
 - Create batch files compilation and deployment, outside of IntelliJ.
 	For Windows for now, Mac / Lunix support later.
 

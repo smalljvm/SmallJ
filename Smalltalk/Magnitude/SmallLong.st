@@ -7,32 +7,30 @@ META new
 	^ self new: 0.
 !
 META new: aSmallInt
-	^ < 99 self aSmallInt >.
-!
-METHOD * arg
-	^ < 97 self arg >.
-!
-METHOD + arg
-	^ < 92 self arg >.
-!
-METHOD - arg
-	^ < 98 self arg >.
-!
-METHOD < arg
-	^ < 95 self arg >.
+	^ < 65 self aSmallInt >.
 !
 METHOD = arg
-	^ < 96 self arg >.
+	^ < 62 self arg >.
+!
+METHOD < arg
+	^ < 61 self arg >.
+!
+METHOD * arg
+	^ < 63 self arg >.
+!
+METHOD + arg
+	^ < 58 self arg >.
+!
+METHOD - arg
+	^ < 64 self arg >.
+!
+METHOD quo: arg
+	^ < 59 self arg >.
+!
+METHOD rem: arg
+	^ < 60 self arg >.
 !
 METHOD printString
 	"String toString()"
 	^ < 39 String 'java.lang.Long' 'toString' self >.
-!
-METHOD quo: arg
-	( 0 = arg ) ifTrue: [ ^ self error: 'Division by zero.' ].
-	^ < 93 self arg >.
-!
-METHOD rem: arg
-	( 0 = arg ) ifTrue: [ ^ self error: 'Division by zero.' ].
-	^ < 94 self arg >.
 !

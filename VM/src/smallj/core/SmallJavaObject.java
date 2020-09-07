@@ -19,7 +19,7 @@ class SmallJavaObject extends SmallObject
 {
 	public Object value;
 
-	static HashMap< String, Class > classCache = new HashMap<>();
+	static HashMap< String, Class<?> > classCache = new HashMap<>();
 
 	SmallJavaObject( SmallObject aClass, Object aValue )
 	{
@@ -39,7 +39,7 @@ class SmallJavaObject extends SmallObject
 			throws Exception
 	{
 		super( aClass, ( ( SmallInt ) aClass.data[ SmallClass.sizeIndex ] ).value );
-		Class javaClass = loadClass( javaClassName );
+		Class<?> javaClass = loadClass( javaClassName );
 		value = ConstructorUtils.invokeConstructor( javaClass, javaArgValues );
 	}
 
@@ -47,16 +47,16 @@ class SmallJavaObject extends SmallObject
 			throws Exception
 	{
 		super( aClass, ( ( SmallInt ) aClass.data[ SmallClass.sizeIndex ] ).value );
-		Class javaClass = loadClass( javaClassName );
+		Class<?> javaClass = loadClass( javaClassName );
 		value = ConstructorUtils.invokeConstructor( javaClass, javaArgs.values, javaArgs.types );
 	}
 
 	// Load class by name, from cache if possible.
 
-	public static Class loadClass( String className )
+	public static Class<?> loadClass( String className )
 			throws ClassNotFoundException
 	{
-		Class aClass = classCache.get( className );
+		Class<?> aClass = classCache.get( className );
 
 		if( aClass == null ) {
 			ClassLoader classLoader = SmallJavaObject.class.getClassLoader();
@@ -118,7 +118,7 @@ class SmallJavaObject extends SmallObject
 	static SmallObject invokeStaticMethod( String javaClassName, String javaMethodName, Object[] javaArgs, SmallObject returnClass )
 			throws Exception
 	{
-		Class javaClass = loadClass( javaClassName );
+		Class<?> javaClass = loadClass( javaClassName );
 		// Object returnValue = MethodUtils.invokeStaticMethod( javaClass, javaMethodName, javaArgs );
 		Object returnValue = fixedInvokeStaticMethod( javaClass, javaMethodName, javaArgs );
 		return javaToSmalltalk( returnValue, returnClass );
@@ -143,10 +143,10 @@ class SmallJavaObject extends SmallObject
 		return MethodUtils.invokeStaticMethod( aClass, methodName, args, argTypes );
 	}
 
-	static SmallObject invokeStaticMethodTyped( String className, String methodName, Object[] argValues, Class[] argTypes, SmallObject returnClass )
+	static SmallObject invokeStaticMethodTyped( String className, String methodName, Object[] argValues, Class<?>[] argTypes, SmallObject returnClass )
 			throws Exception
 	{
-		Class javaClass = loadClass( className );
+		Class<?> javaClass = loadClass( className );
 		Object returnValue = MethodUtils.invokeStaticMethod( javaClass, methodName, argValues, argTypes );
 		return javaToSmalltalk( returnValue, returnClass );
 	}
@@ -169,7 +169,7 @@ class SmallJavaObject extends SmallObject
 	public static SmallObject readStaticField( String javaClassName, String javaFieldName, SmallObject returnClass )
 			throws Exception
 	{
-		Class javaClass = loadClass( javaClassName );
+		Class<?> javaClass = loadClass( javaClassName );
 		Object returnValue = FieldUtils.readStaticField( javaClass, javaFieldName );
 		return javaToSmalltalk( returnValue, returnClass );
 	}
@@ -242,7 +242,7 @@ class SmallJavaObject extends SmallObject
 	static SmallJavaObject loadClass( SmallObject aClass, String javaClassName )
 			throws ClassNotFoundException
 	{
-		Class javaClass = loadClass( javaClassName );
+		Class<?> javaClass = loadClass( javaClassName );
 		return new SmallJavaObject( aClass, javaClass );
 	}
 
@@ -378,6 +378,6 @@ class SmallJavaObject extends SmallObject
 		ListSelectionListener listSelectionListener =
 				event -> { if( event.getValueIsAdjusting() ) 	// Filter out double event on mouse-up.
 					new SmallThread( smallBlock, myThread, smallEventClass, event ).start(); };
-		( ( JList ) value ).addListSelectionListener( listSelectionListener );
+		( ( JList<?> ) value ).addListSelectionListener( listSelectionListener );
 	}
 }

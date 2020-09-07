@@ -503,7 +503,7 @@ public class SmallInterpreter
 	class Primitives
 	{
 		int argCount = 0;
-		static final int maxPrimitive = 100;
+		static final int maxPrimitive = 65;
 		public Primitive[] primitives = new Primitive[ maxPrimitive + 1 ];
 
 		Primitives()
@@ -558,15 +558,14 @@ public class SmallInterpreter
 			primitives[ 55 ] = this::floatLessThan;
 			primitives[ 56 ] = this::floatEquals;
 			primitives[ 57 ] = this::floatAsInteger;
-			primitives[ 92 ] = this::longAdd;
-			primitives[ 93 ] = this::longDivide;
-			primitives[ 94 ] = this::longRemainder;
-			primitives[ 95 ] = this::longLessThan;
-			primitives[ 96 ] = this::longEquals;
-			primitives[ 97 ] = this::longMultiply;
-			primitives[ 98 ] = this::longSubtract;
-			primitives[ 99 ] = this::longNew;
-			primitives[ 100 ] = this::setLongClass;
+			primitives[ 58 ] = this::longAdd;
+			primitives[ 59 ] = this::longDivide;
+			primitives[ 60 ] = this::longRemainder;
+			primitives[ 61 ] = this::longLessThan;
+			primitives[ 62 ] = this::longEquals;
+			primitives[ 63 ] = this::longMultiply;
+			primitives[ 64 ] = this::longSubtract;
+			primitives[ 65 ] = this::longNew;
 		}
 
 		// Execute primitive with argument number from the primitive
@@ -788,7 +787,7 @@ public class SmallInterpreter
 		// ===================================== Long
 
 
-		// < 92 self arg >
+		// < 58 self arg >
 		// Long integer addition. Returns nil on overflow.
 
 		SmallObject longAdd()
@@ -808,7 +807,7 @@ public class SmallInterpreter
 			return new SmallLong( image.longClass, sum );
 		}
 
-		// < 93 self arg >
+		// < 59 self arg >
 
 		SmallObject longDivide()
 		{
@@ -820,7 +819,7 @@ public class SmallInterpreter
 			return new SmallLong( image.longClass, quotient );
 		}
 
-		// < 94 self arg >
+		// < 60 self arg >
 
 		SmallObject longRemainder()
 		{
@@ -832,7 +831,7 @@ public class SmallInterpreter
 			return new SmallLong( image.longClass, remainder );
 		}
 
-		// < 95 self arg >
+		// < 61 self arg >
 		// Note: This is currently not used because the compiler optimizes it in operation #11
 
 		SmallObject longLessThan()
@@ -843,7 +842,7 @@ public class SmallInterpreter
 			return self < arg ? image.trueObject : image.falseObject;
 		}
 
-		// < 96 self arg >
+		// < 62 self arg >
 
 		SmallObject longEquals()
 		{
@@ -853,7 +852,7 @@ public class SmallInterpreter
 			return self == arg ? image.trueObject : image.falseObject;
 		}
 
-		// < 97 self arg >
+		// < 63 self arg >
 		// Returns nil on overflow.
 
 		SmallObject longMultiply()
@@ -873,7 +872,7 @@ public class SmallInterpreter
 			return new SmallLong( image.longClass, product );
 		}
 
-		// < 98 self arg >
+		// < 64 self arg >
 
 		SmallObject longSubtract()
 		{
@@ -892,25 +891,15 @@ public class SmallInterpreter
 			return new SmallLong( image.longClass, subtraction );
 		}
 
-		// < 99 longClass smallInt >
+		// < 65 smallInt >
+		// Return new Smalltalk long with value of smallInt.
+		// So the range is limited for now. Should have Smalltalk compiler support for longs.
 
 		SmallObject longNew()
 		{
 			int value = ( ( SmallInt ) context.stackPop() ).value;
-			SmallObject longClass = context.stackPop();
 
-			return new SmallLong( image.longClass, value );
-		}
-
-		// < 100 longClass  >
-
-		SmallObject setLongClass()
-		{
-			SmallObject longClass = context.stackPop();
-
-			image.current.longClass = longClass;
-
-			return longClass;
+			return image.newLong( value );
 		}
 
 		// =========================================== Block
@@ -1264,7 +1253,7 @@ public class SmallInterpreter
 			// javaArgCount is minus return class, java class name, java method name and and has pairs for argType, argValue.
 			int javaArgCount = ( argCount - 3 ) / 2;
 
-			Class[] javaArgTypes = new Class[ javaArgCount ];
+			Class<?>[] javaArgTypes = new Class[ javaArgCount ];
 			Object[] javaArgValues = new Object[ javaArgCount ];
 
 			try {
@@ -1351,7 +1340,7 @@ public class SmallInterpreter
 		JavaArgs javaParseTypedSmalltalkArgs( int javaArgCount )
 				throws SmallException
 		{
-			Class[] javaArgTypes = new Class[ javaArgCount ];
+			Class<?>[] javaArgTypes = new Class[ javaArgCount ];
 			Object[] javaArgValues = new Object[ javaArgCount ];
 
 			try {

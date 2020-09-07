@@ -83,9 +83,9 @@ public class SmallImage
         return new SmallInt( integerClass, value );
     }
 
-	SmallFloat newLong( long value )
+	SmallLong newLong( long value )
 	{
-		return new SmallFloat( longClass, value );
+		return new SmallLong( longClass, value );
 	}
 
     // Smalltalk Float class is implemented with Java double type.
