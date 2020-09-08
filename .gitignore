@@ -9,6 +9,10 @@ Website/
 # Compiled class file
 *.class
 
+# IntelliJ output folder & workspace
+VM/out
+VM/.idea/workspace.xml
+
 # Log file
 *.log
 
@@ -20,6 +24,7 @@ Website/
 
 # Personal messages
 Feedback/
+
 
 # Smalltalk testing is only a scratchpad now
 Smalltalk/Test

@@ -22,6 +22,10 @@ META separatorChar
 	"static final char separatorChar"
 	^ Char new: < 41 Char 'java.io.File' 'separatorChar' >.
 !
+METHOD exists
+	"boolean exists()"
+	^ < 38 Boolean self 'exists' >.
+!
 METHOD name
 	"String getName()"
 	^ < 38 String self 'getName' >.

@@ -2,8 +2,7 @@ package smallj.core;
 
 class SmallException extends Exception
 {
-	// Unique number for seriazing.
-	// Unused but prevents VSCode warning.
+	// Unique number for serializing. Unused but prevents VSCode warning.
 	private static final long serialVersionUID = 750551701695347665L;
 
 	public SmallObject context;

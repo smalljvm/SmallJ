@@ -54,13 +54,9 @@ METHOD title: title
 !
 METHOD setDefaultIcon
 	"Set frame icon to default icon from resources."
-	| appObject class resource image |
-	"First create any object in the smallj package, to be able to find app resources via its class."
-	appObject <- < 37 JavaObject 'smallj.core.SmallObject' >.
-	class <- < 38 JavaObject appObject 'getClass' >.
-	resource <- < 38 JavaObject class 'getResource' '/SmallJLogo.png' >.
-	resource notNil ifTrue: [
-		"public static BufferedImage ImageIO.read( File input )"
-		image <- < 39 Image 'javax.imageio.ImageIO' 'read' resource >.
+	| file image |
+	file <- File name: 'SmallJ.png'.
+	file exists ifTrue: [
+		image <- < 39 Image 'javax.imageio.ImageIO' 'read' file >.
 		< 38 nil self 'setIconImage' image > ].
 !

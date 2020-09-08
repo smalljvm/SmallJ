@@ -9,9 +9,9 @@ When implementing these, GitHub issues should be made first.
 - Create batch files compilation and deployment, outside of IntelliJ.
 	For Windows for now, Mac / Lunix support later.
 
-- SystemBrowser: better behaviour then there are no source files.
+- SystemBrowser: better behaviour when there are no source files.
 
-- Make SmallError exception trigger Object.error:, showing debugger.
+- Make SmallError exception trigger Object.error: , showing Smalltalk debugger.
 
 - Make FileIn option for smalltalk commands (not being a class)
 	To be used for image repairs.
