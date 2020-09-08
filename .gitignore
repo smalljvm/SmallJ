@@ -1,6 +1,9 @@
 # For now: Smallj.org Website
 Website/
 
+# For now: Smalltalk Test folder, contains only scratch files
+Smalltalk/Test
+
 # Windows shortcuts, copies, scripts.
 *.lnk
 * - Copy*
@@ -24,10 +27,6 @@ VM/.idea/workspace.xml
 
 # Personal messages
 Feedback/
-
-
-# Smalltalk testing is only a scratchpad now
-Smalltalk/Test
 
 # Package Files #
 # We need these: *.jar

@@ -161,7 +161,7 @@ METHOD sourceFileName
 	^ sourceFileName.
 !
 METHOD sourceFileName: aSourceFileName
-	sourceFileName <- aSourceFileName.
+	sourceFileName <- File forwardSlashes: aSourceFileName.
 !
 METHOD subclass: aName variables: aVariables classVariables: aClassVariables
 	| metaClass class |
@@ -196,7 +196,8 @@ METHOD sourceFolderName
 	 Return nil if the source file name is not set."
 	| position |
 	sourceFileName ifNil: [ ^ nil ].
-	position <- sourceFileName indexOfLast: ( File separatorChar ) ifAbsent: [ ^ '.' ].
+	"sourceFileName must be stored using forward slashes."
+	position <- sourceFileName indexOfLast: $/ ifAbsent: [ ^ '.' ].
 	position = 1 ifTrue: [ position <- 2 ].		"If root folder, keep separator char."
 	^ sourceFileName from: 1 to: position - 1.
 !

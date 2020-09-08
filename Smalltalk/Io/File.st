@@ -6,6 +6,10 @@ CLASS Object subclass: 'File' variables: '' classVariables: ''.
 META name: fileName
 	^ < 37 File 'java.io.File' fileName >.
 !
+META forwardSlashes: fileName
+	"Returns filename with Windows style backward slashes replaced with Unix style forward slashes."
+	^ ( fileName collect: [ :char | char = $\ ifTrue: [ $/ ] ifFalse: [ char ] ] ) asString.
+!
 META openRead: fileName
 	"Open fileName for reading using DataInputStream class in Java"
 	| fileInputStream |
@@ -65,6 +69,6 @@ METHOD lastModified
 	^ < 38 SmallLong self 'lastModified' >.
 !
 METHOD close
-	"void close(). File should be output stream."
+	"void close(). Self should be output stream."
 	^ < 38 nil self 'close' >.
 !

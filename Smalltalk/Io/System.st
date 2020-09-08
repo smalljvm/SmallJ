@@ -16,7 +16,7 @@ META log: text
 	self out println: text.
 !
 META exit: status
-	"public static void exit( int status )"
+	"public static void exit( int status )"
 	< 39 nil 'java.lang.System' 'exit' status >.
 !
 META imageFileName
