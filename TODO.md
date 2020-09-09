@@ -1,34 +1,49 @@
 # SmallJ high level todo list
 
-When implementing these, GitHub issues should be made first.
+- Create GitHub issues for TODO's below with tags
+	Then remove this file.
 
-- VSCode resource folder should be set, so logo is shown.
-
-- VSCode generated JAR does not work. (Starting from IDE works)
-
-- Create batch files compilation and deployment, outside of IntelliJ.
-	For Windows for now, Mac / Lunix support later.
-
-- SystemBrowser: better behaviour when there are no source files.
-
-- Make SmallError exception trigger Object.error: , showing Smalltalk debugger.
-
-- Make FileIn option for smalltalk commands (not being a class)
-	To be used for image repairs.
-
-- Break up te File class in separate File and stream classes.
+- File: Break up te File class in separate File and stream classes.
 	Give a decent error message on file not found.
 
-- System.sleep should use SmallLong type.
+- File: Add file existence test before file open,
+  and give more readable error message in stead of Java primitive failure.
 
-- Re-implement Char class as native type, like SmallInt.
+- VSCode: Make Generated SmallJ.jar file work.
+  Starting from IDE works.
+
+- VSCode: Implement Smalltalk debugging support (hard).
+
+- SystemBrowser: better behaviour when source files are not present.
+
+- Documentation: Create intro SmallJ tutorial, shamelessly reusing on Prof. Stef from Amber.
+
+- Debugging: Make SmallError exception trigger Object.error: , showing Smalltalk debugger.
+
+- Deploy: Make FileIn option for smalltalk commands (not being a class)
+	To be used for image repairs.
+
+- Base: Re-implement Char class as native type, like SmallInt.
 	So not keeping it in a separate value field in Smalltalk.
 	Also needs to be a root class in the image then.
 
-- Implement String class as Java String.
+- Base: Implement long integer constants in the compiler.
+	Eg: 10000000000L
+
+- Base: Implement Java Date class for date and time.
+
+- Base: Implement String class as Java String.
 	This is different from a ByteArray.
 
-- Simplify up compiler bytecode encoding and expand branch limits.
+- Compiler: Report line number for compilation errors.
+
+- Compiler: General overhaul of compiler code
+	Maybe integrate mostly trivial *node clases in read* methods.
+
+- Compiler: bugfix: In method compilation, an unbalanced extra closing parenthesis or bracket
+  	should cause a compilation error.
+
+- Compiler: Simplify up compiler bytecode encoding and expand branch limits.
 	Encode in 16 bits words: [ Opcode / Primitive ( 8 bit ) | Param ( 8 bit ) ]
 		Opcodes: 1 .. 31
 		Primitives: 32 .. 255   (starting with #1)
@@ -37,122 +52,70 @@ When implementing these, GitHub issues should be made first.
 		This expands param limit from 8 to 16 bit,
 		specifically making branches possible in larger methods.
 
-- Compiler should not halt thread on compilation error but return failure to caller.
 
-- Enable object edititing in the Inspector.
+- ColorEditor: Add cancel option, returning the original color.
 
-- Color editor: Add cancel option.
+- ImageEditor: Add cancel option, returning the original image.
 
-- Image editor: Add cancel option.
+- Inspector: Enable object instance variable edititing.
 
+- Tutorial: Create *my personal* reference app in SmallJ, that will require in SmallJ:
+  - DateTime oject.
+  - Timer
+  - Import fileIn loader on existing image.
 
-- Make site findable by linking on:
-	Wikipedia Smalltalk.
-
+- Tutorial: Create example app using:
+  - Strings, numbers, collections, GUI
 
 - Inspector: Put tab close button on tabs in stead of in Window
 	First import generic Java component for this.
 	E.g.: https://gist.github.com/6dc/0c8926f85d701a869bb2
 
-==== Visual Studio Code support
+- SystemBrowser: Warn about discarding changed in methods before navigating away.
 
-- Start VM from VSCode on project start.
+- GUI: Create separate workspace browser Window with:
+  - Line expression
+  - Multi line result
+  - Evaluate button.
 
-==== Finish GUI refactoring and further.
+- VM: Make event handling completely dynamic (low)
+	https://stackoverflow.com/questions/61459204/generic-jcomponent-event-handling-in-java
 
-- Remove next GUI wrapper classes and their primitives from interpreter.
-	- ListWidget
+- Testing:
+	- Create test class in ST with regression tests
+    - Add tests for everything touched.
+	- Add standard performance test.
 
-- Add file existence test before file open, to get a nicer error message.
+- SystemBrowser: Enable more class browser Windows?
+    Should only ask exit question on closing last one. Implement with counter als class var.
+	Or make tabs for opened files.
 
-==== Refactor
+- VSCode: Create icon for Smalltalk *.st files.
+	Should be done be extending a known (GitHub) theme.
 
-- SmallObject should get object size from class in stead of passing it separately.
-	See SmallJavaObject for details.
-	Solve overloading conflict with object copy constructor, that same same signature now.
+- Documentation: Image layout.
 
-=====
+- Documentation: Bytecode encoding.
+
+- Smalltalk language: Rename variable assignment operator from "<-" to ":="
+    for more compatibility with other Smalltalk implementations.
 
 - Report SmalltalkExceptions as error on thread level.
 
-- Add line number for compilation errors.
+- Performance: Make benchmark(s) for measuring performance.
 
-- Change default text Pane font to something more readable than Arial.
+- Performance: Create Operations and Primitive tables only once.
+  Is it opssible in Java?
 
-- Create Smalltalk class JavaObject for storing Java objects without a specific wrapper class.
-	It could have generic functionality for creating and invoking...
-
-- Convert primitive 8 blockInvoke to standard argument order.
-
-Bug fixes:
-- In method compilation, and unbalanced extra closing parenthesis or brackets should cause a compilation error.
-
-Features:
-- Add DateTime class encapsulation Java ...
-
-Compilation classes:
-- Move compilation related methods to compiler classes
-    Move fileIn from File to ...
-    Move doIt from String to ...  (but need entry point)
-- Warn about discarding changed in methods before navigating away.
-- Make Windows Question. Modal dialogs.
-
-Create separate workspace browser Window:
-- Line expression
-- Multi line result
-- Evaluate button.
-
-VM enhancement:
-- Make event handling completely dynamic?
-	https://stackoverflow.com/questions/61459204/generic-jcomponent-event-handling-in-java
-
-Testing framework:
-- Create test class in ST with regression tests
-    Add test for everything touched.
-- Add standard performance test.
-
-Application:
-- Enable more class browser Windows?
-    Should only ask exit question on closing last one. Implement with counter als class var.
-
-- Create icon for *.st files.
-	Should be done be extending a known (GitHub) theme.
-
-Open source development:
-- Update ReadMe.md with own info, project purpose.
-	Add full change log.
-- Create new repository in GitHub
-
-Documentation:
-- Image layout.
-- Bytecode encoding.
-
-Smalltalk language:
-- Rename variable assignment operator from "<-" to ":=" for more compatibility with other Smalltalk implementations.
-
-Source control:
-- Smalltalk sources need to be in text files to allow source control.
-    Create build (update) image option from text files.
-- No file close, that keeps written files locked on Windows.
-- Make class file-in remove deleted methods.
-
-
-- VSCode: Implement debugging support through VSCode.
-
-===== Repair image option
-
-- Create image repair option to add all classes found in the image to the class list.
-
-
-========= Performance optimization possibilities:
-- Create Operations and Primitive tables only once.
-- More efficient SmallContext and SmallBlock handling.
+- Performance: More efficient SmallContext and SmallBlock handling.
     Less new object creations.
-- Have single stack, not one per context.
-- Merge Operations and Primitives for single lookup table.
-- Encode small integers in object pointer.
-    Will require some C++ / dirty casting.
-- Do GUI event handlers really need to start a new thread for every action?
+
+- Performance: Have single stack, not one per context?
+
+- Performance: Merge Operations and Primitives for single lookup table.
+
+- Performance: Encode small integers in object pointer (hard, impossible?).
+    Will require some C++ / dirty casting and make Java unsafe.
+
+- Performance: Do GUI event handlers really need to start a new thread for every action?
     E.g. OnMouseMouse seems expensive...
-
-

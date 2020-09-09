@@ -82,6 +82,7 @@ Source level step-debugging seems the ultimate goal there.
 # Personal
 For me personally, this is continuing to be a fun hobby development project.
 Working hours on it have to fit in with a busy daytime job and a social life :).
-If you have any questions or remarks, you can contact me on GitHub or through info@smallj.org.
+If you have any questions, remarks, or would like to join SmallJ main development,
+you can contact me on as user FunctionPoint on GitHub or through info@smallj.org.
 
 Cheers, RichardR
