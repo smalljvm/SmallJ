@@ -6,23 +6,11 @@
 	],
 	"settings": {
 		"java.project.referencedLibraries": [
-			"lib/**/*.jar",
+			"VM/lib/**/*.jar",
 			"VM/lib/commons-lang3-3.10.jar",
 			"VM/lib/commons-beanutils-1.9.4.jar",
 			"VM/lib/commons-logging-1.2.jar"
 		],
 		"java.dependency.packagePresentation": "hierarchical"
-	},
-	"launch": {
-		"version": "0.2.0",
-		"configurations": [
-			{
-				"type": "java",
-				"name": "Debug (Launch) - Current File",
-				"request": "launch",
-				"mainClass": "${file}",
-				"cwd": "${workspaceFolder}\\Smalltalk"
-			}
-		]
 	}
 }
