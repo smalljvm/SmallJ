@@ -12,19 +12,32 @@ META forwardSlashes: fileName
 !
 META openRead: fileName
 	"Open fileName for reading using DataInputStream class in Java"
-	| fileInputStream |
-	fileInputStream <- < 37 File 'java.io.FileInputStream' fileName >.
+	| file fileInputStream |
+	( file <- File name: fileName ) canRead ifFalse: [
+		self error: 'Cannot open file for reading: ' + fileName ].
+
+	fileInputStream <- < 37 File 'java.io.FileInputStream' file >.
 	^ < 37 File 'java.io.DataInputStream' fileInputStream >
 !
 META openWrite: fileName
 	"Open fileName for writing using the PrintStream class in Java."
-	| fileOutputStream |
-	fileOutputStream <- < 37 File 'java.io.FileOutputStream' fileName >.
+	| file fileOutputStream |
+	( file <- File name: fileName ) canWrite ifFalse: [
+		self error: 'Cannot open file for writing: ' + fileName ].
+	fileOutputStream <- < 37 File 'java.io.FileOutputStream' file >.
 	^ < 37 File 'java.io.PrintStream' fileOutputStream >
 !
 META separatorChar
 	"static final char separatorChar"
 	^ Char new: < 41 Char 'java.io.File' 'separatorChar' >.
+!
+METHOD canRead
+	"boolean canRead()"
+	^ < 38 Boolean self 'canRead' >.
+!
+METHOD canWrite
+	"boolean canWrite()"
+	^ < 38 Boolean self 'canWrite' >.
 !
 METHOD exists
 	"boolean exists()"

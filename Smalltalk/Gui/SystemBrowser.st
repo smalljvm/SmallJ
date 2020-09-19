@@ -274,13 +274,14 @@ METHOD gotoMethodInSource: method
 	"Place the cursor (caret) at the starting line of the method.
 	 Make that line the top in the view of there is enough text behind it to fill the source pane."
 	| textPosition viewPosition |
-	textPosition <- sourceTextArea lineStartOffset: method lineNum.
-	viewPosition <- sourceTextArea modelToView: textPosition.
-	sourceTextArea requestFocus.
-	sourceTextArea caretPosition: textPosition.
-	sourceTextArea repaint.
-	"NB: Setting the viewport must be done last, due to a drawing bug in the JVM."
-	sourceScrollPane viewport viewPosition: viewPosition location.
+	method lineNum <= sourceTextArea lineCount ifTrue: [
+		textPosition <- sourceTextArea lineStartOffset: method lineNum.
+		viewPosition <- sourceTextArea modelToView: textPosition.
+		sourceTextArea requestFocus.
+		sourceTextArea caretPosition: textPosition.
+		sourceTextArea repaint.
+		"NB: Setting the viewport must be done last, due to a drawing bug in the Java framework."
+		sourceScrollPane viewport viewPosition: viewPosition location. ]
 !
 METHOD saveAndCompile
 	| file |
@@ -290,10 +291,10 @@ METHOD saveAndCompile
 
 	"Save source if it was changed."
 	selectedSource = sourceTextArea text ifFalse: [
-		selectedSource <- sourceTextArea text.
 		file <- File openWrite: selectedClass sourceFileName.
-		file write: selectedSource.
-		file close ].
+		file write: sourceTextArea text.
+		file close.
+		selectedSource <- sourceTextArea text ].
 
 	"Reload & file-in source, possibly modified externally."
 	self loadSource.
@@ -312,7 +313,7 @@ METHOD evaluate
 	^ result.
 !
 METHOD onInspect
-	"Inspect the result of evaluatiing the expression (see evaluate)."
+	"Inspect the result of evaluating the expression (see evaluate)."
 	Inspector show: self evaluate.
 !
 METHOD saveImage

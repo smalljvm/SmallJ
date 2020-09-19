@@ -1,6 +1,6 @@
 CLASS Context subclass: 'Block' variables: 'argumentLocation creatingContext oldBytePointer' classVariables: ''
 METHOD fork
-   "Block must not have arguments.."
+   "Block must not have arguments."
    < 19 self >.
 !
 METHOD value

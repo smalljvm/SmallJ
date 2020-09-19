@@ -7,6 +7,10 @@ METHOD editable: bool
 	"void setEditable( boolean bool )"
 	< 38 nil self 'setEditable' bool >.
 !
+METHOD lineCount
+	"int getLineCount()"
+	^ < 38 SmallInt self 'getLineCount' >.
+!
 METHOD lineStartOffset: lineNum
 	"int getLineStartOffset( int line )
 	 The first line number shall be 1."
