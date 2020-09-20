@@ -9,14 +9,10 @@ Smalltalk/Test
 * - Copy*
 *.ps1
 
-# Compiled class file
+# Compiled class files
 *.class
 
-# IntelliJ output folder & workspace
-VM/out
-VM/.idea/workspace.xml
-
-# Log file
+# Log files
 *.log
 
 # BlueJ files
