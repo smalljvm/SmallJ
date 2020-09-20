@@ -13,7 +13,7 @@ METHOD add: text action: block
 	"Add item to menu excuting action block when selected."
 	| menuItem |
 	"JMenuItem add( String text )"
-	menuItem <- < 38 Menu self 'add' text >.
+	menuItem := < 38 Menu self 'add' text >.
 	menuItem setMnemonic: ( text at: 1 ).
 	menuItem action: block.
 	^ menuItem.

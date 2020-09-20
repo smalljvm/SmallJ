@@ -82,7 +82,7 @@ And finally, if you need to acces a Java class as an oject, you can use this pri
 
 	#46 - javaLoadClass
 		Syntax: < 46 returnClass javaClassName >
-		Example: javaObjectClass <- < 46 JavaObject 'java.lang.Object' >.
+		Example: javaObjectClass := < 46 JavaObject 'java.lang.Object' >.
 
 ## Final thoughts
 

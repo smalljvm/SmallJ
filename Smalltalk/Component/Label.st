@@ -14,7 +14,7 @@ METHOD image: image
 
 	"Must create intermediate ImageIcon first.
 	 ImageIcon( Image image )"
-	imageIcon <- < 37 JavaObject 'javax.swing.ImageIcon' image >.
+	imageIcon := < 37 JavaObject 'javax.swing.ImageIcon' image >.
 	"void setIcon( Icon icon )"
 	< 38 nil self 'setIcon' imageIcon >.
 

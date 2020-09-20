@@ -30,9 +30,9 @@ METHOD asFloat
 !
 METHOD asLargeInteger
 	| newValue n |
-	newValue <- List new.
-	n <- self abs.
-	[n > 0] whileTrue: [ newValue add: (n rem: 100). n <- n quo: 100].
+	newValue := List new.
+	n := self abs.
+	[n > 0] whileTrue: [ newValue add: (n rem: 100). n := n quo: 100].
 	newValue size = 0 ifTrue: [ newValue add: 0].
 	^ self < 0 ifTrue: [ LargeNegative new: newValue asByteArray]
 		ifFalse: [ LargePositive new: newValue asByteArray ].
@@ -52,9 +52,9 @@ METHOD multByLP: arg
 METHOD multBySmallInt: arg
 	| result |
    "must check for overflow "
-   result <- < 15 arg self >.
+   result := < 15 arg self >.
    result isNil ifTrue: [
-	   result <- arg asLargeInteger * self asLargeInteger ].
+	   result := arg asLargeInteger * self asLargeInteger ].
    ^ result.
 !
 METHOD printString
@@ -83,18 +83,18 @@ METHOD subtractFromLP: arg
 !
 METHOD subtractFromSmallInt: arg
 	| r |
-	r <- < 16 arg self >.
+	r := < 16 arg self >.
 	"Check for overflow."
 	r isNil ifTrue: [
-		r <- arg asLargeInteger - self asLargeInteger ].
+		r := arg asLargeInteger - self asLargeInteger ].
 	^ r.
 !
 METHOD timesRepeat: aBlock
 	| times |
-	times <- self.
+	times := self.
 	[ times > 0 ] whileTrue: [
 		aBlock value.
-		times <- times - 1 ].
+		times := times - 1 ].
 !
 METHOD to: limit
 	^ Interval from: self to: limit by: 1
@@ -106,8 +106,8 @@ METHOD to: limit do: aBlock
 	"Value aBlock repeatedly with integers in range from self upto limit.
 	 Is optimized case of Interval."
 	| i |
-	i <- self.
+	i := self.
 	[ i <= limit ] whileTrue: [
 		aBlock value: i.
-		i <- i + 1 ].
+		i := i + 1 ].
 !

@@ -10,17 +10,17 @@ METHOD show: object
 	frame show.
 !
 METHOD createFrame
-	frame <- Frame new title: 'Inspector'.
+	frame := Frame new title: 'Inspector'.
 	frame setSize: 400 @ 400.
 	frame add: self createObjectsTabbedPane.
 !
 METHOD createObjectsTabbedPane
-	^ frameTabbedPane <- TabbedPane new.
+	^ frameTabbedPane := TabbedPane new.
 !
 METHOD addTab: object
 	"Add object in a new tab."
 	| tab |
-	tab <- InspectorTab new parent: self show: object.
+	tab := InspectorTab new parent: self show: object.
 	frameTabbedPane addTab: object class name component: tab panel.
 	frameTabbedPane selectedIndex: frameTabbedPane tabCount.
 !
@@ -28,7 +28,7 @@ METHOD closeSelectedTab
 	"Close the selected tab if it is not the last remaining one."
 	| index |
 	frameTabbedPane tabCount > 1 ifTrue: [
-		index <- frameTabbedPane selectedIndex.
+		index := frameTabbedPane selectedIndex.
 		index >= 1 ifTrue: [
 			frameTabbedPane removeTabAt: index ] ].
 !

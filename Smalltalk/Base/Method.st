@@ -1,7 +1,7 @@
 CLASS Object subclass: 'Method' variables: 'name byteCodes literals stackSize temporarySize class lineNum' classVariables: ''
 META name: aName byteCodes: aByteCodes literals: aLiterals stackSize: aStackSize temporarySize: aTemporarySize class: aClass
 	| newMethod |
-	newMethod <- self new.
+	newMethod := self new.
 	super in: newMethod at: 1 put: aName.
 	super in: newMethod at: 2 put: aByteCodes.
 	super in: newMethod at: 3 put: aLiterals.
@@ -29,7 +29,7 @@ METHOD lineNum
 	^ lineNum.
 !
 METHOD lineNum: aLineNum
-	lineNum <- aLineNum.
+	lineNum := aLineNum.
 !
 METHOD printString
 	^ name

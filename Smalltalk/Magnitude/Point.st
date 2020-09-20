@@ -12,15 +12,15 @@ METHOD x
 	^ x.
 !
 METHOD x: aX
-  x <- aX
+  x := aX
 !
 METHOD x: aX y: aY
-	x <- aX.
-	y <- aY.
+	x := aX.
+	y := aY.
 !
 METHOD y
 	^ y.
 !
 METHOD y: aY
-   y <- aY.
+   y := aY.
 !

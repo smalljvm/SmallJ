@@ -20,7 +20,7 @@ META showConfirmDialogOn: parentComponent message: message title: title option: 
 		Return values: 0 = YES_OPTION, 1 NO_OPTION, 2 = CANCEL_OPTION, -1 = CLOSED_OPTION.
 	 Must call typed FFI primitive to match parentComponent argument type correctly if it is nil."
 	| answer |
-	answer <- < 45 String 'javax.swing.JOptionPane' 'showConfirmDialog' 'java.awt.Component' parentComponent 'java.lang.Object' message 'java.lang.String' title 'java.lang.Integer' option >.
+	answer := < 45 String 'javax.swing.JOptionPane' 'showConfirmDialog' 'java.awt.Component' parentComponent 'java.lang.Object' message 'java.lang.String' title 'java.lang.Integer' option >.
 	answer = 0 ifTrue: [ ^ true ].
 	answer = 1 ifTrue: [ ^ false ].
 	^ nil.		"Cancel or close."

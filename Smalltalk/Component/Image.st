@@ -4,8 +4,8 @@ CLASS Component subclass: 'Image' variables: 'graphics' classVariables: ''
 META size: aSize
     "Initialize blank image with argument size."
 	| width height |
-	width <- aSize x.
-	height <- aSize y.
+	width := aSize x.
+	height := aSize y.
 	"BufferedImage( int width, int height, int imageType )
 	 imageType: 1 = TYPE_INT_RGB, see others in Java documentation for ColorSpace."
 	^ < 37 Image 'java.awt.image.BufferedImage' width height 1 >.
@@ -13,7 +13,7 @@ META size: aSize
 META fromFile: aFileName
 	| fileInputStream |
 	"public FileInputStream( String name )"
-	fileInputStream <- < 37 File 'java.io.FileInputStream' aFileName >.
+	fileInputStream := < 37 File 'java.io.FileInputStream' aFileName >.
 	"public static BufferedImage read( InputStream input )"
 	^ < 39 Image 'javax.imageio.ImageIO' 'read' fileInputStream >.
 !
@@ -21,7 +21,7 @@ METHOD graphics
 	"Private - Return graphics member for image manipulation.
 	 Create and remember it if it was not set yet."
 	 graphics ifNil: [
-		graphics <- < 38 JavaObject self 'createGraphics' > ].
+		graphics := < 38 JavaObject self 'createGraphics' > ].
 	^ graphics.
 !
 METHOD at: loc drawLine: to

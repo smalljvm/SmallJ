@@ -8,9 +8,9 @@ META from: array
 META from: array type: type
 	"Return Java <type>[] array with elements from array argument."
 	| javaClass javaArray |
-	javaClass <- < 46 JavaObject type >.
+	javaClass := < 46 JavaObject type >.
 	"static Object newInstance( Class<?> elementType, int length )"
-	javaArray <- < 39 self 'java.lang.reflect.Array' 'newInstance' javaClass ( array size ) >.
+	javaArray := < 39 self 'java.lang.reflect.Array' 'newInstance' javaClass ( array size ) >.
 	1 to: array size do: [ :index |
 		"static void set( Object array, int index, Object value )"
 		self in: javaArray at: index - 1 put: ( array at: index ) ].

@@ -16,7 +16,7 @@ METHOD genHigh: high low: low
 		ifFalse: [ self genCode: high * 16 + low ]
 !
 METHOD genLiteral: aValue
-	literals <- literals add: aValue.
+	literals := literals add: aValue.
 	^ literals size - 1
 !
 METHOD method: maxTemps class: c
@@ -25,20 +25,20 @@ METHOD method: maxTemps class: c
 		stackSize: maxStack + 5 temporarySize: maxTemps class: c.
 !
 METHOD name: n
-	name <- n.
-	byteCodes <- List new.
-	literals <- Array new: 0.
-	stackSize <- 0.
-	maxStack <- 1.
+	name := n.
+	byteCodes := List new.
+	literals := Array new: 0.
+	stackSize := 0.
+	maxStack := 1.
 !
 METHOD patch: loc
 	"Patch a goto from a block."
 	byteCodes at: loc put: self currentLocation
 !
 METHOD popArgs: n
-	stackSize <- stackSize - n.
+	stackSize := stackSize - n.
 !
 METHOD pushArgs: n
-	stackSize <- stackSize + n.
-	maxStack <- stackSize max: maxStack
+	stackSize := stackSize + n.
+	maxStack := stackSize max: maxStack
 !

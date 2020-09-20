@@ -4,7 +4,7 @@ META top: t
 !
 META top: t bottom: b  | r |
 	b = 0 ifTrue: [ ^ self error: ' division by zero in fraction'].
-	r <- t gcd: b.
+	r := t gcd: b.
 	^ self in: (self in: super new at: 1 put: (t quo: r)) at: 2 put: (b quo: r)
 !
 METHOD * arg

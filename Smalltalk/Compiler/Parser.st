@@ -11,20 +11,20 @@ METHOD addTempName: name
 		or: [ tempNames includes: name ] )
 		ifTrue: [ self error: 'Doubly defined temp name.' ].
 	tempNames add: name.
-	maxTemps <- maxTemps max: tempNames size
+	maxTemps := maxTemps max: tempNames size
 !
 METHOD arrayLiteral
 	| node |
 	tokenType isAlphabetic
-		ifTrue: [ node <- token. self nextLex. ^ node ].
+		ifTrue: [ node := token. self nextLex. ^ node ].
 	^ self readLiteral
 !
 METHOD binaryContinuation: base | receiver name |
-	receiver <- self unaryContinuation: base.
+	receiver := self unaryContinuation: base.
 	[ self tokenIsBinary ] whileTrue: [
-		name <- token.
+		name := token.
 		self nextLex.
-		receiver <- MessageNode new
+		receiver := MessageNode new
 			receiver: receiver name: name arguments:
 					( List new add:
 						( self unaryContinuation: self readTerm ) ) ].
@@ -40,54 +40,54 @@ METHOD findName: name
 	name = 'true' ifTrue: [ ^ true ].
 	name = 'false' ifTrue: [ ^ false ].
 	name = 'nil' ifTrue: [ ^ nil ].
-	^ Class at: name ifAbsent: [ 
+	^ Class at: name ifAbsent: [
 		self error: 'Unrecognized name: ' + name printString ].
 !
 METHOD keywordContinuation: base
 	| receiver name args |
-	receiver <- self binaryContinuation: base.
+	receiver := self binaryContinuation: base.
 	self tokenIsKeyword
 		ifFalse: [ ^ receiver ].
-	name <- ''.
-	args <- List new.
+	name := ''.
+	args := List new.
 	[ self tokenIsKeyword ]
 		whileTrue: [
-			name <- name + token.
+			name := name + token.
 			self nextLex.
 			args add: ( self binaryContinuation: self readTerm ) ].
 	^ MessageNode new receiver: receiver name: name arguments: args
 !
 METHOD lexAlphabetic
 	| cc start |
-	start <- index.
-	[ ( cc <- self nextChar ) isAlphanumeric ]
+	start := index.
+	[ ( cc := self nextChar ) isAlphanumeric ]
 			whileTrue: [ nil ].
 		" add any trailing colons "
 	cc = $: ifTrue: [ self nextChar ].
-	token <- text from: start to: index - 1
+	token := text from: start to: index - 1
 !
 METHOD lexBinary
 	| c d |
-	c <- self currentChar.
-	token <- c asString.
-	d <- self nextChar.
+	c := self currentChar.
+	token := c asString.
+	d := self nextChar.
 	( self charIsSyntax: c ) ifTrue: [ ^ token ].
 	( ( ( d isBlank
 		or: [ d isDigit ] )
 		or: [ d isAlphabetic ] )
 		or: [ self charIsSyntax: d ] )
 			ifTrue: [ ^ token ].
-	token <- token + d asString.
+	token := token + d asString.
 	self nextChar
 !
 METHOD lexInteger
 	"Also lexes floats."
 	| start |
-	start <- index.
+	start := index.
 	[ self nextChar isDigit ] whileTrue: [ nil ].
 	( self currentChar = $. and: [ ( text at: index + 1 ifAbsent: [ $  ] ) isDigit ] ) ifTrue: [
 		[ self nextChar isDigit ] whileTrue: [ nil ] ].
-	token <- text from: start to: index - 1
+	token := text from: start to: index - 1
 !
 METHOD nameNode: name
 	" make a new name node "
@@ -108,15 +108,15 @@ METHOD nameNode: name
 	^ LiteralNode new value: ( self findName: name )
 !
 METHOD nextChar
-	index <- index + 1.
+	index := index + 1.
 	^ text at: index ifAbsent: [ $  ].
 !
 METHOD nextLex
 	self skipBlanks.
-	tokenType <- self currentChar.
+	tokenType := self currentChar.
 	tokenType isNil ifTrue: [ " end of input "
-		tokenType <- $  .
-		token <- nil.
+		tokenType := $  .
+		token := nil.
 		^ nil ].
 	tokenType isDigit ifTrue: [ ^ self lexInteger ].
 	tokenType isAlphabetic ifTrue: [ ^ self lexAlphabetic ].
@@ -126,7 +126,7 @@ METHOD parse: c
 	| encoder |
 	"Note: Must call text:instanceVars:classVars: first."
 	self nextLex.
-	encoder <- Encoder new.
+	encoder := Encoder new.
 	encoder name: self readMethodName.
 	self readMethodVariables.
 	self readBody compile: encoder block: false.
@@ -137,7 +137,7 @@ METHOD readArray
 	self currentChar ~= $( ifTrue: [
 		self error: self currentChar asString + 'SmallJ does not support symbols.' ].
 	self nextChar. self nextLex.
-	args <- List new.
+	args := List new.
 	[ tokenType ~= $) ] whileTrue: [
 		args add: self readTerm ].
 	self nextLex.
@@ -145,12 +145,12 @@ METHOD readArray
 !
 METHOD readBlock
 	| stmts saveTemps |
-	saveTemps <- tempNames asList. " copy "
+	saveTemps := tempNames asList. " copy "
 	self nextLex.
 	tokenType = $:
 		ifTrue: [ self readBlockTemporaries ].
-	stmts <- self readStatementList.
-	"tempNames <- saveTemps."
+	stmts := self readStatementList.
+	"tempNames := saveTemps."
 	( saveTemps size + 1 to: tempNames size ) do: [ :i | tempNames at: i put: ' ' ].
 	tokenType = $]
 		ifTrue: [ self nextLex.
@@ -177,8 +177,8 @@ METHOD readBody
 METHOD readExpression
 	| node |
 	self tokenIsName ifFalse: [ ^ self keywordContinuation: self readTerm ].
-	node <- self nameNode: token. self nextLex.
-	self tokenIsArrow
+	node := self nameNode: token. self nextLex.
+	self tokenIsAssign
 		ifTrue: [ node assignable
 				ifFalse: [ self error: 'Illegal assignment.' ].
 			self nextLex.
@@ -188,19 +188,19 @@ METHOD readExpression
 METHOD readInteger
 	| value divisor |
 	tokenType isDigit ifFalse: [ self error: 'integer expected' ].
-	value <- 0.
+	value := 0.
 	token do: [ :c |
-		c isDigit ifTrue: [ value <- value * 10 + ( c value - 48 ).
-			divisor notNil ifTrue: [ divisor <- divisor * 10 ] ].
-		c = $. ifTrue: [ divisor <- 1 ] ].
-   divisor notNil ifTrue: [ value <- value asFloat / divisor ].
+		c isDigit ifTrue: [ value := value * 10 + ( c value - 48 ).
+			divisor notNil ifTrue: [ divisor := divisor * 10 ] ].
+		c = $. ifTrue: [ divisor := 1 ] ].
+   divisor notNil ifTrue: [ value := value asFloat / divisor ].
    self nextLex.
    ^ value
 !
 METHOD readLiteral
 	| node |
 	tokenType = $$
-		ifTrue: [ node <- self currentChar.
+		ifTrue: [ node := self currentChar.
 			self nextChar. self nextLex. ^ node ].
 	tokenType isDigit
 		ifTrue: [ ^ self readInteger ].
@@ -213,18 +213,18 @@ METHOD readLiteral
 METHOD readMethodName
 	| name |
 	self tokenIsName	" unary method "
-		ifTrue: [ name <- token. self nextLex. ^ name ].
+		ifTrue: [ name := token. self nextLex. ^ name ].
 	self tokenIsBinary	" binary method "
-		ifTrue: [ name <- token. self nextLex.
+		ifTrue: [ name := token. self nextLex.
 			self tokenIsName
 				ifFalse: [ self error: 'missing argument' ].
 				self addArgName: token.
 				self nextLex. ^ name ].
 	self tokenIsKeyword
 		ifFalse: [ self error: 'invalid method header' ].
-	name <- ''.
+	name := ''.
 	[ self tokenIsKeyword ]
-		whileTrue: [ name <- name + token. self nextLex.
+		whileTrue: [ name := name + token. self nextLex.
 			self tokenIsName
 				ifFalse: [ self error: 'missing argument' ].
 				self addArgName: token.
@@ -243,8 +243,8 @@ METHOD readMethodVariables
 METHOD readPrimitive
 	| num args |
 	self nextLex.
-	num <- self readInteger.
-	args <- List new.
+	num := self readInteger.
+	args := List new.
 	[ tokenType ~= $> ]
 		whileTrue: [ args add: self readTerm ].
 	self nextLex.
@@ -258,7 +258,7 @@ METHOD readStatement
 !
 METHOD readStatementList
 	| list |
-	list <- List new.
+	list := List new.
 	[ list add: self readStatement.
 	  tokenType notNil and: [ tokenType = $. ] ]
 		whileTrue: [ self nextLex.
@@ -268,11 +268,11 @@ METHOD readStatementList
 !
 METHOD readString
 	| first last cc |
-	first <- index.
-	[ cc <- self currentChar.
+	first := index.
+	[ cc := self currentChar.
 	  cc isNil ifTrue: [ self error: 'unterminated string constant' ].
-	  cc ~= $' ] whileTrue: [ index <- index + 1 ].
-	last <- index - 1.
+	  cc ~= $' ] whileTrue: [ index := index + 1 ].
+	last := index - 1.
 	self nextChar = $'
 		ifTrue: [ self nextChar.
 			^ ( text from: first to: index - 2 ) + self readString ].
@@ -284,7 +284,7 @@ METHOD readTerm
 	token isNil
 		ifTrue: [ self error: 'unexpected end of input' ].
 	tokenType = $(
-		ifTrue: [ self nextLex. node <- self readExpression.
+		ifTrue: [ self nextLex. node := self readExpression.
 			tokenType = $)
 				ifFalse: [ self error: 'unbalanced parenthesis' ].
 			self nextLex. ^ node ].
@@ -292,49 +292,49 @@ METHOD readTerm
 	tokenType = $< ifTrue: [ ^ self readPrimitive ].
 	tokenType = $# ifTrue: [ ^ self readArray ].
 	self tokenIsName
-		ifTrue: [ node <- self nameNode: token.
+		ifTrue: [ node := self nameNode: token.
 			self nextLex. ^ node ].
 	^ LiteralNode new value: self readLiteral
 !
 METHOD skipBlanks
 	| cc |
-	[ cc <- self currentChar.
+	[ cc := self currentChar.
 	  cc notNil and: [ cc isBlank ] ]
-			whileTrue: [ index <- index + 1 ].
+			whileTrue: [ index := index + 1 ].
 	( cc notNil and: [ cc = $" ] )
 		ifTrue: [ self skipComment ]
 !
 METHOD skipComment
 	| cc |
-	[ index <- index + 1.
-	  cc <- self currentChar.
+	[ index := index + 1.
+	  cc := self currentChar.
 	  cc isNil
 		ifTrue: [ ^ self error: 'unterminated comment' ].
 	  cc ~= $" ] whileTrue: [ nil ].
 	self nextChar. self skipBlanks
 !
 METHOD text: aString instanceVars: anArray
-	text <- aString.
-	index <- 1.
-	argNames <- List new.
+	text := aString.
+	index := 1.
+	argNames := List new.
 	argNames add: 'self'.
-	instNames <- anArray.
-	tempNames <- List new.
-	maxTemps <- 0
+	instNames := anArray.
+	tempNames := List new.
+	maxTemps := 0
 !
 METHOD text: aString instanceVars: anArray classVars: ca
-	text <- aString.
-	index <- 1.
-	argNames <- List new.
+	text := aString.
+	index := 1.
+	argNames := List new.
 	argNames add: 'self'.
-	instNames <- anArray.
-	tempNames <- List new.
-	classVarNames <- ca.
-	maxTemps <- 0
+	instNames := anArray.
+	tempNames := List new.
+	classVarNames := ca.
+	maxTemps := 0
 !
-METHOD tokenIsArrow
+METHOD tokenIsAssign
 	( token isKindOf: String ) ifFalse: [ ^ false ].
-	^ token = '<-'
+	^ token = ':='.
 !
 METHOD tokenIsBinary
 	( ( ( token isNil
@@ -353,9 +353,9 @@ METHOD tokenIsName
 !
 METHOD unaryContinuation: base
 	| receiver |
-	receiver <- base.
+	receiver := base.
 	[ self tokenIsName ]
-		whileTrue: [ receiver <- MessageNode new
+		whileTrue: [ receiver := MessageNode new
 				receiver: receiver name: token
 					arguments: ( List new ).
 				self nextLex ].

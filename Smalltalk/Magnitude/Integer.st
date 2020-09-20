@@ -16,7 +16,7 @@ METHOD asHex
 	"Return hexadecimal sting version of self.
 	 Negative numbers give zero."
 	| hex |
-	hex <- ''
+	hex := ''
 	^ self
 !
 METHOD asInteger
@@ -33,9 +33,9 @@ METHOD equalToSmallInt: arg
 !
 METHOD gcd: x  | n  m |
 	" euclids gcd algorithm "
-	n <- self. m <- x.
+	n := self. m := x.
 	(n <= 0 or: [m <= 0]) ifTrue: [ ^ 1].
-	[ n = m ] whileFalse: [ n < m ifTrue: [ m <- m - n ] ifFalse: [ n <- n - m ]].
+	[ n = m ] whileFalse: [ n < m ifTrue: [ m := m - n ] ifFalse: [ n := n - m ]].
 	^ n
 !
 METHOD lessThanSmallInt: arg

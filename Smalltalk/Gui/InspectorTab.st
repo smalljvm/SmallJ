@@ -2,13 +2,13 @@ CLASS Object subclass: 'InspectorTab' variables: 'parent object panel stringText
 	"Maintains a single tabbed pane in the Inspector window."
 METHOD parent: aParent show: aObject
 	"Create new view on aObject"
-	parent <- aParent.
-	object <- aObject.
+	parent := aParent.
+	object := aObject.
 	self createPanel.
 	self loadObject.
 !
 METHOD createPanel
-	panel <- Panel new.
+	panel := Panel new.
 	panel border: ( BorderLayout emptyBorder: ( Insets top: 4 left: 4 bottom: 4 right: 4 ) ).
 	panel layout: ( BorderLayout gap: 0 @ 4 ).
 	panel add: self createStringPanel constraints: BorderLayout north.
@@ -21,15 +21,15 @@ METHOD panel
 METHOD createStringPanel
 	| stringLabel stringPanel closeButton |
 
-	stringLabel <- Label new text: 'String'.
+	stringLabel := Label new text: 'String'.
 
-	stringTextField <- TextField new.
+	stringTextField := TextField new.
 	stringTextField editable: false.
 	stringTextField background: ( Color red: 250 green: 250 blue: 250 ).
 
-	closeButton <- Button new text: 'x' action: [ :actionEvent | parent closeSelectedTab ].
+	closeButton := Button new text: 'x' action: [ :actionEvent | parent closeSelectedTab ].
 
-	stringPanel <- Panel new.
+	stringPanel := Panel new.
 	stringPanel layout: ( BorderLayout gap: 4 @ 0 ).
 	stringPanel add: stringLabel constraints: BorderLayout west.
 	stringPanel add: stringTextField constraints: BorderLayout center.
@@ -38,7 +38,7 @@ METHOD createStringPanel
 	^ stringPanel.
 !
 METHOD createVariablesPanel
-	variablesTable <- Table new.
+	variablesTable := Table new.
 	variablesTable disableEditing.
 	variablesTable model addColumns: #( 'Variable' 'Value' ).
 
@@ -58,7 +58,7 @@ METHOD loadObject
 METHOD loadIndexed
 	"Object to inspect is an indexed collection."
 	| rowData |
-	rowData <- Array new: 2.
+	rowData := Array new: 2.
 	1 to: object size do: [ :index |
 		rowData at: 1 put: index printString.
 		rowData at: 2 put: ( object at: index ) printString.
@@ -66,9 +66,9 @@ METHOD loadIndexed
 !
 METHOD loadVariables
 	| variables rowData |
-	variables <- object class instanceVariables.
+	variables := object class instanceVariables.
 
-	rowData <- Array new: 2.
+	rowData := Array new: 2.
 	1 to: variables size do: [ :index |
 		rowData at: 1 put: ( variables at: index ).
 		rowData at: 2 put: ( Object in: object at: index ) printString.
@@ -79,8 +79,8 @@ METHOD onTableClicked: mouseEvent
 	| row newObject |
 	"Check for double-click."
 	mouseEvent clickCount = 2 ifTrue: [
-		row <- variablesTable selectedRow.
+		row := variablesTable selectedRow.
 		row > 0 ifTrue: [
-			newObject <- Object in: object at: row.
+			newObject := Object in: object at: row.
 			parent addTab: newObject ] ].
 !

@@ -4,19 +4,19 @@ METHOD addAll: aCollection
 !
 METHOD asArray
 	| newArray index |
-	newArray <- Array new: self size.
-	index <- 1.
+	newArray := Array new: self size.
+	index := 1.
 	self do: [ :element | newArray at: index put: element.
-		index <- index + 1 ].
+		index := index + 1 ].
 	^ newArray
 !
 METHOD asByteArray
 	| newArray index |
-	newArray <- ByteArray new: self size.
-	index <- 1.
+	newArray := ByteArray new: self size.
+	index := 1.
 	self do: [ :element |
 		newArray at: index put: element.
-		index <- index + 1 ].
+		index := index + 1 ].
 	^ newArray
 !
 METHOD asList
@@ -30,10 +30,10 @@ METHOD asOrdered: testBlock
 !
 METHOD asString
 	| newString index |
-	newString <- String new: self size.
-	index <- 1.
+	newString := String new: self size.
+	index := 1.
 	self do: [ :element | newString at: index put: element.
-		index <- index + 1 ].
+		index := index + 1 ].
 	^ newString
 !
 METHOD collect: transformBlock
@@ -53,8 +53,8 @@ METHOD includesTest: aBlock
 	^ false
 !
 METHOD inject: value into: binaryBlock | result |
-	result <- value.
-	self do: [ :element | result <- binaryBlock value: result value: element ].
+	result := value.
+	self do: [ :element | result := binaryBlock value: result value: element ].
 	^ result
 !
 METHOD isEmpty

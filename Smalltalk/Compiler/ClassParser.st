@@ -18,20 +18,20 @@ METHOD fileIn: fileName
 	 Raises error on parse failure."
 	System out println: 'ClassParser.FileIn: ' + fileName.
 
-	lineNum <- 0.
-	file <- File openRead: fileName.
+	lineNum := 0.
+	file := File openRead: fileName.
 
-	class <- self parseClass: self readLine.
+	class := self parseClass: self readLine.
 	class sourceFileName: fileName.
 
-	classMethods <- Ordered new: [ :a :b | a name < b name ].
-	instanceMethods <- Ordered new: [ :a :b | a name < b name ].
+	classMethods := Ordered new: [ :a :b | a name < b name ].
+	instanceMethods := Ordered new: [ :a :b | a name < b name ].
 
-	[ ( line <- self readLine ) = nil ] whileFalse: [
-		method <- self parseMethod: line type: 'META' class: class class.
+	[ ( line := self readLine ) = nil ] whileFalse: [
+		method := self parseMethod: line type: 'META' class: class class.
 		method ifNotNil: [ classMethods add: method ].
 
-		method <- self parseMethod: line type: 'METHOD' class: class.
+		method := self parseMethod: line type: 'METHOD' class: class.
 		method ifNotNil: [ instanceMethods add: method ] ].
 
 	"Set class methods to only those that were filed-in, removing others.
@@ -44,7 +44,7 @@ METHOD parseClass: line
 	 This should be in the first line in the file.
 	 Raise error if parsing fails."
 	| keyword |
-	keyword <- 'CLASS'.
+	keyword := 'CLASS'.
 	( line isNil or: [ ( line from: 1 to: keyword size ) ~= keyword ] ) ifTrue: [
 		self error: 'CLASS keyword not found on start of first line' ].
 
@@ -55,20 +55,20 @@ METHOD parseMethod: line type: type class: class
 	 Return true on succesful parse, false otherwise."
 	| methodLineNum methodHeader method |
 	( line from: 1 to: type size ) = type ifFalse: [ ^ nil ].
-	methodLineNum <- lineNum.
-	methodHeader <- ( line from: type size + 1 to: line size ) trim + Char newline asString.
-	method <- class compileMethod: ( methodHeader + self readMethodBody ).
+	methodLineNum := lineNum.
+	methodHeader := ( line from: type size + 1 to: line size ) trim + Char newline asString.
+	method := class compileMethod: ( methodHeader + self readMethodBody ).
 	method lineNum: methodLineNum.
 	^ method.
 !
 METHOD readMethodBody
 	"Read method source upto next '!' line."
 	| newline methodSource line |
-	newline <- Char newline asString.
-	methodSource <- ''.
-	[ ( line <- self readLine ) = nil ] whileFalse: [
+	newline := Char newline asString.
+	methodSource := ''.
+	[ ( line := self readLine ) = nil ] whileFalse: [
 		line = '!' ifTrue: [ ^ methodSource ].
-		methodSource <- methodSource + line + newline ].
+		methodSource := methodSource + line + newline ].
 
 	self error: 'Failed to find method end marker: "!"'.
 !
@@ -76,8 +76,8 @@ METHOD readLine
 	"Read next line from file, increasing line number.
 	 Return nil on end of file."
 	| line |
-	line <- file readLine.
+	line := file readLine.
 	line ifNil: [ ^ nil ].
-	lineNum <- lineNum + 1.
+	lineNum := lineNum + 1.
 	^ line.
 !

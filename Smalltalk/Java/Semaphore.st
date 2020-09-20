@@ -16,7 +16,7 @@ METHOD release
 !
 METHOD set: aValue
 	"Set semaphore value and release it."
-	value <- aValue.
+	value := aValue.
 	self release.
 !
 METHOD wait

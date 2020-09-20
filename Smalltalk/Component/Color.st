@@ -28,9 +28,9 @@ META white
 METHOD red: aRed green: aGreen blue: aBlue
 	"Private - Set interal color components.
 	 Should only be called in constructor because we are immutable."
-	red <- aRed.
-	green <- aGreen.
-	blue <- aBlue.
+	red := aRed.
+	green := aGreen.
+	blue := aBlue.
 !
 METHOD asInteger
 	"Note: Left to right evaluation order, no operator precedence."

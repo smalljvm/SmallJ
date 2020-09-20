@@ -1,6 +1,6 @@
 CLASS ParserNode subclass: 'ReturnNode' variables: 'expression' classVariables: ''
 METHOD expression: e
-	expression <- e
+	expression := e
 !
 METHOD compile: encoder block: inBlock
 	expression compile: encoder block: inBlock.

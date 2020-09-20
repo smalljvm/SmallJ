@@ -13,18 +13,18 @@ META forwardSlashes: fileName
 META openRead: fileName
 	"Open fileName for reading using DataInputStream class in Java"
 	| file fileInputStream |
-	( file <- File name: fileName ) canRead ifFalse: [
+	( file := File name: fileName ) canRead ifFalse: [
 		self error: 'Cannot open file for reading: ' + fileName ].
 
-	fileInputStream <- < 37 File 'java.io.FileInputStream' file >.
+	fileInputStream := < 37 File 'java.io.FileInputStream' file >.
 	^ < 37 File 'java.io.DataInputStream' fileInputStream >
 !
 META openWrite: fileName
 	"Open fileName for writing using the PrintStream class in Java."
 	| file fileOutputStream |
-	( file <- File name: fileName ) canWrite ifFalse: [
+	( file := File name: fileName ) canWrite ifFalse: [
 		self error: 'Cannot open file for writing: ' + fileName ].
-	fileOutputStream <- < 37 File 'java.io.FileOutputStream' file >.
+	fileOutputStream := < 37 File 'java.io.FileOutputStream' file >.
 	^ < 37 File 'java.io.PrintStream' fileOutputStream >
 !
 META separatorChar
@@ -55,8 +55,8 @@ METHOD relativePath
 	"Return relative path to file from current working folder, if possible.
 	 Otherwise return absolute path."
 	| basePath path |
-	basePath <- System currentDirectoryName.
-	path <- self path.
+	basePath := System currentDirectoryName.
+	path := self path.
 	( basePath from: 1 to: basePath size ) = ( path from: 1 to: basePath size ) ifFalse: [ ^ path ].
 	^ path from: basePath size + 2 to: path size.
 !
@@ -68,10 +68,10 @@ METHOD readLine
 METHOD asString
 	"Read all the lines in file file and return them as a single string."
 	| newline result line |
-	newline <- Char newline asString.
-	result <- ''.
-	[ ( line <- self readLine ) = nil ] whileFalse: [
-		result <- result + line + newline ].
+	newline := Char newline asString.
+	result := ''.
+	[ ( line := self readLine ) = nil ] whileFalse: [
+		result := result + line + newline ].
 	^ result.
 !
 METHOD write: aString

@@ -1,6 +1,6 @@
 CLASS ParserNode subclass: 'InstNode' variables: 'position' classVariables: ''
 METHOD position: aPosition
-	position <- aPosition.
+	position := aPosition.
 !
 METHOD compile: encoder block: inBlock
 	encoder genHigh: 1 low: position - 1.

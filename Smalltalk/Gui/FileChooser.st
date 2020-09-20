@@ -8,7 +8,7 @@ METHOD extensionFilter: description extensions: extensions
 	 Extensions shoud be a string collection of size >= 2, containing a description string and the extension names, like 'st'"
 	| extensionFilter  |
 	"FileNameExtensionFilter( String description, String... extensions )"
-	extensionFilter <- < 37 JavaObject 'javax.swing.filechooser.FileNameExtensionFilter' description ( JavaArray from: extensions type: 'java.lang.String' ) >.
+	extensionFilter := < 37 JavaObject 'javax.swing.filechooser.FileNameExtensionFilter' description ( JavaArray from: extensions type: 'java.lang.String' ) >.
 	"void setFileFilter( FileFilter filter )"
 	< 38 nil self 'setFileFilter' extensionFilter >.
 !
@@ -17,11 +17,11 @@ METHOD showOpenDialog: parent
 	| option file |
 	"int showOpenDialog( Component parent )
 	 Returns: 0 = APPROVE_OPTION, 1 = CANCEL_OPTION, -1 = ERROR_OPTION"
-	option <- < 38 SmallInt self 'showOpenDialog' parent >.
+	option := < 38 SmallInt self 'showOpenDialog' parent >.
 	option = 0 ifFalse: [ ^ nil ].
 
 	"File getSelectedFile()"
-	file <- < 38 File self 'getSelectedFile' >.
+	file := < 38 File self 'getSelectedFile' >.
 	^ file relativePath.
 !
 METHOD setToCurrentDirectory

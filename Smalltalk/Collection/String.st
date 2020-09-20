@@ -30,17 +30,17 @@ METHOD asWords: separators
 	"Return array of strings containing the  words in self,
 	 separated by characters in separators string parameter."
 	| words word |
-	word <- ''.
-	words <- List new.
+	word := ''.
+	words := List new.
 	self do: [ :char |
 		( separators includes: char )
 			ifTrue: [
 				( word size > 0 ) ifTrue: [
 					"Found a word."
 					words add: word.
-					word <- '' ] ]
+					word := '' ] ]
 			ifFalse: [
-				word <- word + char asString ] ].
+				word := word + char asString ] ].
 	"Add possible last word."
 	word size > 0 ifTrue: [
 		words add: word ].
@@ -52,7 +52,7 @@ METHOD copy
 !
 METHOD doIt
 	| method |
-	method <- Object parseMethod: 'doItCommand ^ ' + self.
+	method := Object parseMethod: 'doItCommand ^ ' + self.
 	method notNil ifTrue: [
 		^ ( Context new perform: method withArguments: ( Array new: 1 ) ) ].
 !
@@ -73,20 +73,20 @@ METHOD size
 METHOD trim
 	"Answer new string with leading and trainling spaces removed."
 	| startPos endPos |
-	startPos <- 1.
+	startPos := 1.
 	[ startPos <= self size and: [ ( self at: startPos ) isBlank ] ] whileTrue: [
-		startPos <- startPos + 1 ].
+		startPos := startPos + 1 ].
 
-	endPos <- self size.
+	endPos := self size.
 	[ endPos > startPos and: [ ( self at: endPos ) isBlank ] ] whileTrue: [
-		endPos <- endPos - 1 ].
+		endPos := endPos - 1 ].
 
 	^ self from: startPos to: endPos.
 !
 METHOD asLowerCase
 	"Return copy of string with uppercase characters converted tot lower case."
 	| result |
-	result <- String new: self size.
+	result := String new: self size.
 	1 to: self size do: [ :index |
 		result at: index put: ( self at: index ) lowerCase ].
 	^ result.

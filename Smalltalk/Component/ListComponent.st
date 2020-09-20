@@ -3,9 +3,9 @@ CLASS Component subclass: 'ListComponent' variables: '' classVariables: ''
 META new
 	| listComponent plainFont |
 	"JList()"
-	listComponent <- < 37 self 'javax.swing.JList' >.
+	listComponent := < 37 self 'javax.swing.JList' >.
 	"Set detault font style to plain."
-	plainFont <- listComponent font style: 0. "plain"
+	plainFont := listComponent font style: 0. "plain"
 	^ listComponent font: plainFont.
 !
 METHOD listData: collection

@@ -20,7 +20,7 @@ METHOD = aChar
 METHOD asString
 	| r |
 	"Return char as a string value."
-	r <- String new: 1.
+	r := String new: 1.
 	r at: 1 put: self.
 	^ r
 !
@@ -50,7 +50,7 @@ METHOD lowerCase
 !
 METHOD printString
 	| r |
-	r <- String new: 2.
+	r := String new: 2.
 	r at: 1 put: $$.
 	r at: 2 put: self.
 	^ r

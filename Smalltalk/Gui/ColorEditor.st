@@ -4,9 +4,9 @@ META show: aColor
 !
 METHOD show: aColor
 	"Display color selection window on argument. Answer selected new color."
-	color <- aColor.
+	color := aColor.
 
-	semaphore <- Semaphore new.
+	semaphore := Semaphore new.
 	self createFrame.
 	self loadColor.
   	frame show.
@@ -16,29 +16,29 @@ METHOD show: aColor
 METHOD createFrame
 	|  selectButton framePanel |
 
-	textField <- TextField new.
-	selectButton <- Button new text: 'Select' action: [ :actionEvent | self onSelect ].
+	textField := TextField new.
+	selectButton := Button new text: 'Select' action: [ :actionEvent | self onSelect ].
 
-	framePanel <- Panel new layout: BorderLayout new.
+	framePanel := Panel new layout: BorderLayout new.
 	framePanel border: ( BorderLayout emptyBorder: ( Insets top: 4 left: 4 bottom: 4 right: 4 ) ).
 	framePanel add: textField constraints: BorderLayout north.
 	framePanel add: self createScrollBarsPanel constraints: BorderLayout west.
 	framePanel add: self createImageLabel constraints: BorderLayout center.
 	framePanel add: selectButton constraints: BorderLayout south.
 
-	frame <- Frame new title: 'Color Editor'.
+	frame := Frame new title: 'Color Editor'.
 	frame setSize: 300 @ 250.
 	frame add: framePanel.
 !
 METHOD createScrollBarsPanel
 	| scrollBarsPanel scrollBar |
 
-	scrollBarsPanel <- Panel new layout: ( GridLayout size: 3 @ 1 ).
+	scrollBarsPanel := Panel new layout: ( GridLayout size: 3 @ 1 ).
 
-	scrollBars <- List new.
+	scrollBars := List new.
 	3 timesRepeat: [
 		"ScrollBar max must also have room for the extent: 255 + 10."
-		scrollBar <- ScrollBar orientation: 1 value: 0 extent: 10 min: 0 max: 265.
+		scrollBar := ScrollBar orientation: 1 value: 0 extent: 10 min: 0 max: 265.
 		scrollBar onAdjust: [ :adjustmentEvent | self onScrollBarChanged ].
 		scrollBars add: scrollBar.
 		scrollBarsPanel add: scrollBar ].
@@ -46,11 +46,11 @@ METHOD createScrollBarsPanel
 	^ scrollBarsPanel.
 !
 METHOD createImageLabel
-	image <- Image size: 200 @ 200.
+	image := Image size: 200 @ 200.
 	image setColor: color.
 	image at: 0 @ 0 fillRect: 200 @ 200.
 
-	^ imageLabel <- Label new image: image.
+	^ imageLabel := Label new image: image.
 !
 METHOD loadColor
 	"Load the current color into the GUI."
@@ -67,7 +67,7 @@ METHOD loadColor
 !
 METHOD onScrollBarChanged
 	"Get new color from changed scrollbar values and update GUI."
-	color <- Color red: ( scrollBars at: 1 ) value green: ( scrollBars at: 2 ) value blue: ( scrollBars at: 3 ) value.
+	color := Color red: ( scrollBars at: 1 ) value green: ( scrollBars at: 2 ) value blue: ( scrollBars at: 3 ) value.
 	self loadColor.
 !
 METHOD onSelect

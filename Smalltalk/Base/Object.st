@@ -22,7 +22,7 @@ META in: object at: index put: value
 META in: object initialize: variable with: value
 	"Set variable in object to value."
 	| index |
-	index <- object class variables indexOf: variable ifAbsent: [
+	index := object class variables indexOf: variable ifAbsent: [
 		self error: 'Variable not found: ' + variable ].
 	^ self in: object at: index put: value.
 !
@@ -62,10 +62,10 @@ METHOD inspect
 METHOD isKindOf: aClass
 	"Return true if self is an instance of aClass or one of its parents."
 	| class |
-	class <- self class.
+	class := self class.
 	[ class notNil ] whileTrue: [
 		class == aClass ifTrue: [ ^ true ].
-		class <- class superclass ].
+		class := class superclass ].
 	^ false.
 !
 METHOD isNil

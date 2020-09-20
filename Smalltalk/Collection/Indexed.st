@@ -26,10 +26,10 @@ METHOD indexOfLast: element ifAbsent: exceptionBlock
 	"Return the index of the *last* occurance of element in self,
 	 or exceptionBlock value if not found."
 	| index |
-	index <- self size.
+	index := self size.
 	[ index >= 1 ] whileTrue: [
 			( self at: index ) = element ifTrue: [ ^ index ].
-			index <- index - 1 ].
+			index := index - 1 ].
 	^ exceptionBlock value
 !
 METHOD indexOf: element match: matchBlock ifAbsent: exceptionBlock
@@ -45,8 +45,8 @@ METHOD reverseDo: aBlock
 !
 METHOD with: aCollection pad: aValue do: aBlock
 	| selfSize argSize |
-	selfSize <- self size.
-	argSize <- aCollection size.
+	selfSize := self size.
+	argSize := aCollection size.
 	1 to: ( selfSize max: argSize ) do: [ :index |
 		aBlock
 			value: ( index <= selfSize ifTrue: [ self at: index ] ifFalse: [ aValue ] )

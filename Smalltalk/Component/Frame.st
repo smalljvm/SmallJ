@@ -55,8 +55,8 @@ METHOD title: title
 METHOD setDefaultIcon
 	"Set frame icon to default icon from resources."
 	| file image |
-	file <- File name: 'SmallJ.png'.
+	file := File name: 'SmallJ.png'.
 	file exists ifTrue: [
-		image <- < 39 Image 'javax.imageio.ImageIO' 'read' file >.
+		image := < 39 Image 'javax.imageio.ImageIO' 'read' file >.
 		< 38 nil self 'setIconImage' image > ].
 !

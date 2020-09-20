@@ -9,20 +9,20 @@ METHOD backtrace
 		( previousContext notNil ifTrue: [ previousContext backtrace ] ifFalse: [ ' ' ] ).
 !
 METHOD method: aMethod arguments: aAgruments
-	method <- aMethod.
-	arguments <- aAgruments.
-	temporaries <- Array new: aMethod tempSize.
-	bytePointer <- 0.
-	stack <- Array new: method stackSize.
-	stackTop <- 0.
+	method := aMethod.
+	arguments := aAgruments.
+	temporaries := Array new: aMethod tempSize.
+	bytePointer := 0.
+	stack := Array new: method stackSize.
+	stackTop := 0.
 !
 METHOD perform: aMethod withArguments: aAgruments
-	method <- aMethod.
-	arguments <- aAgruments.
-	temporaries <- Array new: aMethod tempSize.
-	bytePointer <- 0.
-	stack <- Array new: method stackSize.
-	stackTop <- 0.
+	method := aMethod.
+	arguments := aAgruments.
+	temporaries := Array new: aMethod tempSize.
+	bytePointer := 0.
+	stack := Array new: method stackSize.
+	stackTop := 0.
 	^ < 6 self >.
 !
 METHOD method

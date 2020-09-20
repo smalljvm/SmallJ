@@ -4,7 +4,7 @@ META new
 !
 METHOD add: newElement
 	( current = values size ) ifTrue: [ self reallocate ].
-	current <- current + 1.
+	current := current + 1.
 	values at: current put: newElement
 !
 METHOD addFirst: newElement
@@ -26,7 +26,7 @@ METHOD insert: value at: position
 	( current = values size ) ifTrue: [ self reallocate ].
 	( position to: current ) reverseDo:
 		[ :i | values at: i+1 put: ( values at: i ) ].
-	current <- current + 1.
+	current := current + 1.
 	values at: position put: value
 !
 METHOD printString
@@ -34,9 +34,9 @@ METHOD printString
 !
 METHOD reallocate
 	| newArray |
-	newArray <- Array new: 2 * values size.
+	newArray := Array new: 2 * values size.
 	1 to: values size do: [ :i | newArray at: i put: ( values at: i ) ].
-	values <- newArray
+	values := newArray
 !
 METHOD remove: element
 	self remove: element ifAbsent: [ nil ].
@@ -48,7 +48,7 @@ METHOD remove: element ifAbsent: exceptionBlock
 METHOD removeAt: index
   ( index between: 1 and: current )
       ifFalse: [ self error: 'invalid index for removeAt:' ].
-   current <- current - 1.
+   current := current - 1.
    index to: current do: [ :i | values at: i put: ( values at: i+1 ) ]
 !
 METHOD size

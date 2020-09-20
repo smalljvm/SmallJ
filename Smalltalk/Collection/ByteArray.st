@@ -5,9 +5,9 @@ META new: aSize
 !
 METHOD asCode
 	| result |
-	result <- '( '.
+	result := '( '.
 	self do: [ :element |
-		result <- result + ( element quo: 16 ) + ':' + ( element rem: 16 ) + ' ' ].
+		result := result + ( element quo: 16 ) + ':' + ( element rem: 16 ) + ' ' ].
 	^ result + ')'.
 !
 METHOD at: index ifAbsent: exceptionBlock

@@ -1,6 +1,6 @@
 CLASS ParserNode subclass: 'LiteralNode' variables: 'value' classVariables: ''
 METHOD value: aValue
-	value <- aValue.
+	value := aValue.
 !
 METHOD compile: encoder block: inBlock
 	value == nil ifTrue: [ ^ encoder genHigh: 5 low: 10 ].

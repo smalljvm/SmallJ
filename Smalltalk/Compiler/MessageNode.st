@@ -1,8 +1,8 @@
 CLASS ParserNode subclass: 'MessageNode' variables: 'receiver name arguments lineNum' classVariables: ''
 METHOD receiver: r name: n arguments: a
-	receiver <- r.
-	name <- n.
-	arguments <- a
+	receiver := r.
+	name := n.
+	arguments := a
 !
 METHOD compile: encoder block: inBlock
 	receiver isNil
@@ -63,12 +63,12 @@ METHOD argumentsAreBlock
 !
 METHOD optimizeWhile: encoder block: inBlock
 	| start save |
-	start <- encoder currentLocation.
+	start := encoder currentLocation.
 	receiver compileInLine: encoder block: inBlock.
 	name = 'whileTrue:'	" branch if false/true "
 		ifTrue: [ encoder genHigh: 15 low: 8 ]
 		ifFalse: [ encoder genHigh: 15 low: 7 ].
-	save <- encoder genCode: 0.
+	save := encoder genCode: 0.
 	(arguments at: 1) compileInLine: encoder block: inBlock.
 	encoder genHigh: 15 low: 5. " pop from stack "
 	encoder genHigh: 15 low: 6. " branch "
@@ -79,10 +79,10 @@ METHOD optimizeWhile: encoder block: inBlock
 METHOD compile: encoder test: t constant: c block: inBlock
 	| save ssave |
 	encoder genHigh: 15 low: t.  " branch test "
-	save <- encoder genCode: 0.
+	save := encoder genCode: 0.
 	(arguments at: 1) compileInLine: encoder block: inBlock.
 	encoder genHigh: 15 low: 6.  " branch "
-	ssave <- encoder genCode: 0.
+	ssave := encoder genCode: 0.
 	encoder patch: save.
 	encoder genHigh: 5 low: c.  " push constant "
 	encoder patch: ssave
@@ -90,10 +90,10 @@ METHOD compile: encoder test: t constant: c block: inBlock
 METHOD optimizeIf: encoder block: inBlock
 	| save ssave |
 	encoder genHigh: 15 low: 8.  " branch if false test "
-	save <- encoder genCode: 0.
+	save := encoder genCode: 0.
 	(arguments at: 1) compileInLine: encoder block: inBlock.
 	encoder genHigh: 15 low: 6.  " branch "
-	ssave <- encoder genCode: 0.
+	ssave := encoder genCode: 0.
 	encoder patch: save.
 	(arguments at: 2) compileInLine: encoder block: inBlock.
 	encoder patch: ssave

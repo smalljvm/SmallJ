@@ -1,6 +1,6 @@
 CLASS ParserNode subclass: 'BodyNode' variables: 'statements' classVariables: ''
 METHOD statements: s
-	statements <- s.
+	statements := s.
 !
 METHOD compile: encoder block: inBlock
 	statements do: [ :stmt |
