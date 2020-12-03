@@ -11,17 +11,17 @@ But a *lot* was changed and rewritten... in summary:
 - Created Smalltalk primitives for manipulating arbitrary Java objects (FFI) using reflection.
   So now, the full Java framework can be used from Smalltalk without modifying the VM.
 - Reimplemented the VM GUI classes in Smalltalk using the FFI, that now closely mirror the Java Swing framework.
-  So now, all Java GUI operations can be easily added with one 1-line methods in Smalltalk.
+  So now, all Java GUI operations can be easily added with one-line methods in Smalltalk.
   Further abstractions can be built on top of this, if desired.
   Removed now redundant GUI wrapper classes and associated primitives from the VM.
 - Changed the development workflow to be source file based, preferably using the rich Visual Studio Code IDE.
   Created a new class browser in Smalltalk for testing / debugging this way.
-  Remove source code from the image anymore, making it a lot smaller.
+  Removed source code from the image, making it a lot smaller.
 
-With all these changes, the interpreter will may run slower than it did before.
-Maybe, because adding primitive tables with direct function references probably helped a lot.
+With these changes, the interpreter will may run slower than it did before.
+Maybe, because adding primitive tables with direct function references probably helped performance a lot.
 Speed is not an issue for regular development operations, the system is snappy.
-The recompiling *all* sources takes about 8 seconds on my sub-top Core-i7 from 2017.
+Recompiling all sources takes about 8 seconds on my sub-top Core-i7 from 2017.
 Anyway, performance testing and hotspot optimizations are still to come...
 
 # Smalltalk startup & development
@@ -30,11 +30,11 @@ Anyway, performance testing and hotspot optimizations are still to come...
 - The folder "./VSCode" contains an extension with basic syntax coloring support.
   On Windows, run "Deploy.cmd" to deploy it in your VSCode IDE (it's a simple copy).
 - Smalltalk development is done in the "./Smalltalk" folder.
-- SmallJ can bestarted by selecting Run or Debug from VSCode,
+- SmallJ can be started by selecting Run or Debug from VSCode,
   or by running SmallJ.cmd from the ./Smalltalk folder to start Java with SmallJ.jar.
 - The default Smalltalk image file is 'Image.sjim'.
 - Smalltalk class source files (*.st) are organized in subfolders that could be called packages.
-- By default, the main IDE Window, the System Browser, is shown.
+- By default, the main development window, the System Browser, is shown.
   There, folders, classes and methods can be selected to edit their source.
 - The [ Save & Compile ] button saves and compiles the modified class.
   Note: If the source file was modifield outside SmallJ, e.g. in VSCode, that file will be compiled and loaded.
@@ -56,8 +56,8 @@ Anyway, performance testing and hotspot optimizations are still to come...
   This includes starting it in the ./Smalltalk folder, which is required.
 
 # Vision
-For now, SmallJ is an intended to be an educational system, as is SmallWorld by Timothy Budd.
-Is shows the beauty of the elegant, clean and fully object oriented Smalltalk language,
+For now, SmallJ is an intended to be an educational system, as was SmallWorld.
+Is shows the beauty of the elegant, clean and fully object oriented Smalltalk programming language,
 to be compared to the many hybrid OO languages that are out there currently.
 In the future, SmallJ could be expanded to being a useful scripting language for smaller tasks
 and for creating quick GUIs.
