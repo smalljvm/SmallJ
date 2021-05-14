@@ -54,7 +54,7 @@ METHOD doIt
 	| method |
 	method := Object parseMethod: 'doItCommand ^ ' + self.
 	method notNil ifTrue: [
-		^ ( Context new perform: method withArguments: ( Array new: 1 ) ) ].
+		^ Context new perform: method withArguments: ( Array new: 0 ) ].
 !
 METHOD find: substr
 	1 to: ( self size - substr size + 1 ) do: [ :i |

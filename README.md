@@ -49,7 +49,7 @@ Anyway, performance testing and hotspot optimizations are still to come...
 
 # VM startup & development
 - The VM is located in the ./VM folder.
-- It was developed with OpenJDK v14, so install that first, or something similar.
+- It is developed with OpenJDK v15, so install that first, or something similar.
   Using for modern Java features is encouraged to keep the VM source code compact.
 - For VM development, using Visual Studio Code is recommended also.
   The VSCode workspace in the root folder contains the settings to build, run and debug the VM.
