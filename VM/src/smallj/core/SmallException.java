@@ -1,5 +1,3 @@
-package smallj.core;
-
 class SmallException extends Exception
 {
 	// Unique number for serializing. Unused but prevents VSCode warning.

@@ -1,5 +1,3 @@
-package smallj.core;
-
 class SmallLong extends SmallObject
 {
 	public long value;

@@ -1,5 +1,3 @@
-package smallj.core;
-
 import java.io.*;
 
 // Load image file indicated by argument.

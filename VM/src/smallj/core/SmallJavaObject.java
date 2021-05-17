@@ -1,5 +1,3 @@
-package smallj.core;
-
 // Smalltalk wrapper for Java objects.
 // Dynamically loads Java classes, creates instances and invokes methods from Smalltalk primitives.
 

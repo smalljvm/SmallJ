@@ -1,5 +1,3 @@
-package smallj.core;
-
 // Caches for message sends
 
 public class MethodCache

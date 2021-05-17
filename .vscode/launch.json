@@ -8,7 +8,7 @@
 			"type": "java",
 			"name": "Debug (Launch) - Current File",
 			"request": "launch",
-			"mainClass": "smallj.core.SmallJApp",
+			"mainClass": "SmallJApp",
 			"cwd": "${workspaceFolder}/Smalltalk"
 		}
 	]

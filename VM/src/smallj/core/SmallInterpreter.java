@@ -1,5 +1,3 @@
-package smallj.core;
-
 public class SmallInterpreter
 {
 	public SmallImage image;

@@ -1,5 +1,3 @@
-package smallj.core;
-
 // This class is for cached and encapsulated access to smalltalk Context and Bock instances.
 // Data of the constructing context object is not copied but referred to.
 

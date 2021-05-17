@@ -11,6 +11,9 @@
 			"VM/lib/commons-beanutils-1.9.4.jar",
 			"VM/lib/commons-logging-1.2.jar"
 		],
-		"java.dependency.packagePresentation": "hierarchical"
+		"java.dependency.packagePresentation": "hierarchical",
+		"java.project.sourcePaths": [
+			"VM/src/smallj/core"
+		]
 	}
 }

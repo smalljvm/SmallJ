@@ -1,5 +1,3 @@
-package smallj.core;
-
 class SmallFloat extends SmallObject
 {
 	// Smalltalk float is represented as a Java double precision floating point number.

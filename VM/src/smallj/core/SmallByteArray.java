@@ -1,5 +1,3 @@
-package smallj.core;
-
 class SmallByteArray extends SmallObject
 {
     public byte[] values;

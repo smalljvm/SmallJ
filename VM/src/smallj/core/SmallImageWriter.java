@@ -1,5 +1,3 @@
-package smallj.core;
-
 // Recursively writes basic objects, their classes and their member variables to the image.
 // All classes can be found this way because the Class object is the parent of all meta classes,
 // and it has a member variable than contains all classes.

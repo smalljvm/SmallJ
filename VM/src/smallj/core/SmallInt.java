@@ -1,5 +1,3 @@
-package smallj.core;
-
 class SmallInt extends SmallObject
 {
 	public int value;

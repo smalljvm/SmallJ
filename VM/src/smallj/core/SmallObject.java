@@ -1,5 +1,3 @@
-package smallj.core;
-
 public class SmallObject
 {
 	public SmallObject[] data;

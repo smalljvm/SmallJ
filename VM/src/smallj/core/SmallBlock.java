@@ -1,5 +1,3 @@
-package smallj.core;
-
 // Encapsulated access to smalltalk Bock instances.
 
 // Smalltalk definitions:

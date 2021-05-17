@@ -1,5 +1,3 @@
-package smallj.core;
-
 import javax.swing.*;
 import java.util.EventObject;
 

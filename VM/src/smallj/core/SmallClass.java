@@ -1,5 +1,3 @@
-package smallj.core;
-
 // Some encapsulation for Smalltalk class: Class
 // Object subclass: 'Class'
 //      variables: 'name parentClass methods size variables sourceFileName'
