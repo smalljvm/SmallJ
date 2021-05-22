@@ -5,7 +5,7 @@
 			"type": "java",
 			"label": "java: exportjar:SmallJ",
 			"mainClass": "SmallJApp",
-			"targetPath": "${workspaceFolder}/Smalltalk/${workspaceFolderBasename}.jar",
+			"targetPath": "${workspaceFolder}/../Smalltalk/SmallJ.jar",
 			"elements": [
 				"${compileOutput}",
 				"${dependencies}"

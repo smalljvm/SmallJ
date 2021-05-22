@@ -6,10 +6,9 @@
 	"configurations": [
 		{
 			"type": "java",
-			"name": "Debug (Launch) - Current File",
+			"name": "Launch SmallJApp",
 			"request": "launch",
 			"mainClass": "SmallJApp",
-			"cwd": "${workspaceFolder}/Smalltalk"
-		}
+			"cwd": "${workspaceFolder}/../Smalltalk"		}
 	]
 }
