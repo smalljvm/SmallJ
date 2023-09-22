@@ -71,7 +71,7 @@ Other Java libraries could be encapsulated by Smalltalk,
 in stead of rewriting them in Smalltalk from the ground up.
 Support for databases / persistence is a todo.
 GUI wise, HTML support is desired, probably with its own web server.
-(And for browser client development, a SmallJS VM would be nice... :)
+New: For browser client development, check out [SmallJS](https://github.com/Small-JS/SmallJS) !
 
 Regression testing needs to added for maintaining stability with open source development.
 VM performance optimization is also needed to make it more suitable for CPU intensive tasks.
