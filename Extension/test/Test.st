@@ -3,3 +3,6 @@ if { a } then ( b ) else [ c ]
 
 // Comment
 
+/* sdsd */
+
+// Test

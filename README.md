@@ -1,6 +1,6 @@
-Note: 
-This repo is about a Java based Smalltalk environment.
-For *SmallJS*, a *JavaScript* based Smalltalk environment, check out:
+Note: \
+This repo is about a Java based Smalltalk environment.\
+For **SmallJS**, a *JavaScript* based Smalltalk environment, check out:\
 https://github.com/Small-JS/SmallJS
 
 # SmallJ  ReadMe

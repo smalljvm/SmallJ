@@ -10,5 +10,7 @@
 			"path": "Documentation"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"java.dependency.packagePresentation": "hierarchical"
+	}
 }
