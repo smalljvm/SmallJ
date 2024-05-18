@@ -2,7 +2,7 @@
 
 SmallJ is a simple Smalltalk virtual machine written in Java.
 It was originally created as SmallWorld by Timothy Budd (http://web.engr.oregonstate.edu/~budd/SmallWorld/).
-This specific version was built from Eric Sharff's update (https://github.com/ericscharff/SmallWorld)
+This specific version was built from Eric Scharff's update (https://github.com/ericscharff/SmallWorld)
 
 But a *lot* was changed and rewritten... in summary:
 - More OO Java code; more classes, longer variable names, fewer globals, smaller functions.
