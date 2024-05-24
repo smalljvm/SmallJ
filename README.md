@@ -26,12 +26,11 @@ Anyway, performance testing and hotspot optimizations are still to come...
 
 # Smalltalk startup & development
 - Use of Visual Studio Code (VSCode) is strongly recommended for Smalltalk development.
-  There's a VSCode workspace file, SmallJ.code-workspace, in the root folder.
 - The folder "./VSCode" contains an extension with basic syntax coloring support.
   On Windows, run "Deploy.cmd" to deploy it in your VSCode IDE (it's a simple copy).
 - Smalltalk development is done in the "./Smalltalk" folder.
-- SmallJ can be started by selecting Run or Debug from VSCode,
-  or by running SmallJ.cmd from the ./Smalltalk folder to start Java with SmallJ.jar.
+- SmallJ can be started by selecting Run or Debug from the VSCode workspace in the ./VM folder,
+  or by running SmallJ.jar from the ./Smalltalk folder. The .jar extension should be associated to the OpenJDK VM.
 - The default Smalltalk image file is 'Image.sjim'.
 - Smalltalk class source files (*.st) are organized in subfolders that could be called packages.
 - By default, the main development window, the System Browser, is shown.
@@ -49,7 +48,7 @@ Anyway, performance testing and hotspot optimizations are still to come...
 
 # VM startup & development
 - The VM is located in the ./VM folder.
-- It is developed with OpenJDK v15, so install that first, or something similar.
+- It is developed with OpenJDK v17, so install that first.
   Using for modern Java features is encouraged to keep the VM source code compact.
 - For VM development, using Visual Studio Code is recommended also.
   The VSCode workspace in the root folder contains the settings to build, run and debug the VM.

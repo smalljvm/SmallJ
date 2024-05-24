@@ -1,13 +1,7 @@
 {
 	"folders": [
 		{
-			"path": "VM"
-		},
-		{
-			"path": "Smalltalk"
-		},
-		{
-			"path": "Documentation"
+			"path": "."
 		}
 	],
 	"settings": {
