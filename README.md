@@ -48,11 +48,16 @@ Anyway, performance testing and hotspot optimizations are still to come...
 
 # VM startup & development
 - The VM is located in the ./VM folder.
-- It is developed with OpenJDK v17, so install that first.
+- It is developed with OpenJDK, so install that first from:
+	https://adoptium.net/temurin/releases/
   Using for modern Java features is encouraged to keep the VM source code compact.
 - For VM development, using Visual Studio Code is recommended also.
   The VSCode workspace in the root folder contains the settings to build, run and debug the VM.
   This includes starting it in the ./Smalltalk folder, which is required.
+
+# Documentation
+Further documentation can be found here:
+[Documentation.md](Documentation/Documentation.md)
 
 # Vision
 For now, SmallJ is an intended to be an educational system, as was SmallWorld.
@@ -70,7 +75,7 @@ Other Java libraries could be encapsulated by Smalltalk,
 in stead of rewriting them in Smalltalk from the ground up.
 Support for databases / persistence is a todo.
 GUI wise, HTML support is desired, probably with its own web server.
-New: For browser client development, check out [SmallJS](https://github.com/Small-JS/SmallJS) !
+New: For browser Smalltalk development, check out [SmallJS](https://github.com/Small-JS/SmallJS) !
 
 Regression testing needs to added for maintaining stability with open source development.
 VM performance optimization is also needed to make it more suitable for CPU intensive tasks.
@@ -84,4 +89,4 @@ Working hours on it have to fit in with a busy daytime job and a social life :).
 If you have any questions, remarks, or would like to join SmallJ main development,
 you can contact me on as user FunctionPoint on GitHub.
 
-Cheers, RichardR
+Cheers, Richard
