@@ -1,3 +1,13 @@
+# Changes in release 2.0 - 10-NOV-2026
+
+Complete overhaul!
+Compiler was moved to the VM/Java.
+This allows generating the image the from the ST source files safely.
+VM Java project is now more structured.
+ST class format was simplified.
+ST classes now have unit tests.
+GuiDesign has bee deleted, AI can to it..
+
 # Changes in release 0.9 - 31-Aug-2020
 
 - Started with a fork of Eric Scharff's SmallWorld version on GitHub: ericscharff/SmallWorld
