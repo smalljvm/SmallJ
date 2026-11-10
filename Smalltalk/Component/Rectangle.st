@@ -1,25 +1,27 @@
 CLASS JavaObject subclass: 'Rectangle' variables: '' classVariables: ''
 	"Implements java.awt.Rectangle."
-META x: x y: y width: width height: height
+CLASSMETHODS
+x: x y: y width: width height: height
 	^ < 37 self 'java.awt.Rectangle' x y width height >.
 !
-METHOD printString
+METHODS
+printString
 	^ 'Rectangle( loc: ' + self x printString + ' @ ' + self y printString +
 		', size: ' + self width printString + ' @ ' + self height printString + ' )'.
 !
-METHOD location
+location
 	"Point getLocation()"
 	^ < 38 JPoint self 'getLocation' >.
 !
-METHOD x
+x
 	^ < 40 SmallInt self 'x' >.
 !
-METHOD y
+y
 	^ < 40 SmallInt self 'y' >.
 !
-METHOD width
+width
 	^ < 40 SmallInt self 'width' >.
 !
-METHOD height
+height
 	^ < 40 SmallInt self 'height' >.
 !

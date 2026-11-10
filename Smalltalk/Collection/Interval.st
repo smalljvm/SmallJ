@@ -1,5 +1,6 @@
 CLASS Collection subclass: 'Interval' variables: 'low high step' classVariables: ''
-META from: aLow to: aHigh by: aStep
+CLASSMETHODS
+from: aLow to: aHigh by: aStep
 	| newInterval |
 	newInterval := self new.
 	self in: newInterval at: 1 put: aLow.
@@ -7,14 +8,15 @@ META from: aLow to: aHigh by: aStep
 	self in: newInterval at: 3 put: aStep.
 	^ newInterval.
 !
-METHOD do: aBlock
+METHODS
+do: aBlock
 	| current |
 	current := low.
 	[ current <= high ] whileTrue: [
 		aBlock value: current.
 		current := current + step ].
 !
-METHOD reverseDo: aBlock
+reverseDo: aBlock
 	| current |
 	current := high.
 	[ current >= low ] whileTrue: [

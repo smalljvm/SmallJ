@@ -1,29 +1,30 @@
 CLASS JavaObject subclass: 'BorderLayout' variables: '' classVariables: ''
 	"Implements java.awt.BorderLayout."
-META new
+CLASSMETHODS
+new
 	"BorderLayout()"
 	^ < 37 self 'java.awt.BorderLayout' >.
 !
-META gap: point
+gap: point
 	"BorderLayout( int hgap, int vgap )"
 	^ < 37 self 'java.awt.BorderLayout' ( point x ) ( point y ) >.
 !
-META center
+center
 	^ 'Center'.
 !
-META north
+north
 	^ 'North'.
 !
-META south
+south
 	^ 'South'.
 !
-META east
+east
 	^ 'East'.
 !
-META west
+west
 	^ 'West'.
 !
-META emptyBorder: insets
+emptyBorder: insets
 	"javax.swing.border.EmptyBorder( Insets insets )"
 	^ < 37 JavaObject 'javax.swing.border.EmptyBorder' insets >.
 !

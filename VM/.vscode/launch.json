@@ -9,6 +9,8 @@
 			"name": "Launch SmallJApp",
 			"request": "launch",
 			"mainClass": "SmallJApp",
-			"cwd": "${workspaceFolder}/../Smalltalk"		}
+			"cwd": "${workspaceFolder}/../Smalltalk",
+			"preLaunchTask": "Build image"
+		}
 	]
 }

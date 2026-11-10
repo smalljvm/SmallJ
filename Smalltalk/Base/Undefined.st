@@ -1,16 +1,18 @@
 CLASS Object subclass: 'Undefined' variables: '' classVariables: ''
-META new
+CLASSMETHODS
+new
 	" there is only one nil object "
 	^ nil.
 !
-METHOD isNil
+METHODS
+isNil
 	" yes, we are nil "
 	^ true.
 !
-METHOD notNil
+notNil
 	" no, we are not not-nil "
 	^ false.
 !
-METHOD printString
+printString
 	^ 'nil'.
 !

@@ -1,14 +1,29 @@
 CLASS Object subclass: 'Context' variables: 'method arguments temporaries stack bytePointer stackTop previousContext' classVariables: ''
-META current
+CLASSMETHODS
+current
    ^ < 35 >.
 !
-METHOD backtrace
+METHODS
+backtrace
   ^  method name +
   		( arguments inject: '[' into: [ :r :a | r + a class printString + ',' ] ) +
         ']' + Char newline asString +
 		( previousContext notNil ifTrue: [ previousContext backtrace ] ifFalse: [ ' ' ] ).
 !
-METHOD method: aMethod arguments: aAgruments
+errorBlock
+	"Return the error block of the nearest Block>>onError: on the call stack below self, or nil if there is none.
+	 Called by Object>>error: on its own context. Returns nil when the method of self is found again on the
+	 call stack, which means an error was raised inside an error block, to prevent endless recursion."
+	| aContext |
+	aContext := previousContext.
+	[ aContext notNil ] whileTrue: [
+		aContext method == method ifTrue: [ ^ nil ].
+		( aContext method name = 'onError:' and: [ ( aContext arguments at: 1 ) isKindOf: Block ] ) ifTrue: [
+			^ aContext arguments at: 2 ].
+		aContext := aContext previousContext ].
+	^ nil.
+!
+method: aMethod arguments: aAgruments
 	method := aMethod.
 	arguments := aAgruments.
 	temporaries := Array new: aMethod tempSize.
@@ -16,7 +31,7 @@ METHOD method: aMethod arguments: aAgruments
 	stack := Array new: method stackSize.
 	stackTop := 0.
 !
-METHOD perform: aMethod withArguments: aAgruments
+perform: aMethod withArguments: aAgruments
 	method := aMethod.
 	arguments := aAgruments.
 	temporaries := Array new: aMethod tempSize.
@@ -25,24 +40,24 @@ METHOD perform: aMethod withArguments: aAgruments
 	stackTop := 0.
 	^ < 6 self >.
 !
-METHOD method
+method
 	^ method.
 !
-METHOD arguments
+arguments
 	^ arguments.
 !
-METHOD temporaries
+temporaries
 	^ temporaries.
 !
-METHOD stack
+stack
 	^ stack.
 !
-METHOD bytePointer
+bytePointer
 	^ bytePointer.
 !
-METHOD stackTop
+stackTop
 	^ stackTop.
 !
-METHOD previousContext
+previousContext
 	^ previousContext.
 !

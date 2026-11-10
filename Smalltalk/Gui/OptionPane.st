@@ -1,9 +1,10 @@
 CLASS Component subclass: 'OptionPane' variables: '' classVariables: ''
 	"Implements Java javax.swing.JOptionPane"
-META showMessageDialog: message
+CLASSMETHODS
+showMessageDialog: message
 	self showMessageDialogOn: nil message: message title: 'Message' messageType: 1
 !
-META showMessageDialogOn: parentComponent message: message title: title type: type
+showMessageDialogOn: parentComponent message: message title: title type: type
 	"Show modal dialog with message, title and type and OK button to close.
 		messageType: -1 PLAIN_MESSAGE (no icon), 0 = ERROR_MESSAGE. 1 = INFORMATION_MESSAGE, 2 = WARNING_MESSAGE, 3 = QUESTION_MESSAGE"
 
@@ -11,7 +12,7 @@ META showMessageDialogOn: parentComponent message: message title: title type: ty
 	 Must call typed FFI primitive to match parentComponent argument type correctly if it is nil."
 	^ < 45 String 'javax.swing.JOptionPane' 'showMessageDialog' 'java.awt.Component' parentComponent 'java.lang.Object' message 'java.lang.String' title 'java.lang.Integer' type >.
 !
-META showConfirmDialogOn: parentComponent message: message title: title option: option
+showConfirmDialogOn: parentComponent message: message title: title option: option
 	"Show conformation dialog with options yes, no and cancel.
 	 Return values: true for yes, false for no and nil for cancel or close."
 
@@ -25,7 +26,7 @@ META showConfirmDialogOn: parentComponent message: message title: title option: 
 	answer = 1 ifTrue: [ ^ false ].
 	^ nil.		"Cancel or close."
 !
-META showInputDialogOn: parentComponent message: message title: title type: type
+showInputDialogOn: parentComponent message: message title: title type: type
 	"String showInputDialog( Component parentComponent, Object message, String title, int messageType )
 	 Must call typed FFI primitive to match parentComponent argument type correctly if it is nil."
 	^ < 45 String 'javax.swing.JOptionPane' 'showInputDialog' 'java.awt.Component' parentComponent 'java.lang.Object' message 'java.lang.String' title 'java.lang.Integer' type >.

@@ -1,26 +1,28 @@
 CLASS Magnitude subclass: 'Point' variables: 'x y' classVariables: ''
-META x: x y: y
+CLASSMETHODS
+x: x y: y
 	^ self new x: x y: y.
 !
-METHOD + aPoint
+METHODS
++ aPoint
 	^ ( x + aPoint x ) @ ( y + aPoint y ).
 !
-METHOD printString
+printString
 	^ x printString + ' @ ' + y printString.
 !
-METHOD x
+x
 	^ x.
 !
-METHOD x: aX
+x: aX
   x := aX
 !
-METHOD x: aX y: aY
+x: aX y: aY
 	x := aX.
 	y := aY.
 !
-METHOD y
+y
 	^ y.
 !
-METHOD y: aY
+y: aY
    y := aY.
 !

@@ -1,12 +1,14 @@
 CLASS Component subclass: 'Table' variables: 'model' classVariables: ''
 	"Implements javax.swing.JTable on model javax.swing.table.DefaultTableModel."
-META new
+CLASSMETHODS
+new
 	| model |
 	model := TableModel new.
 	"JTable()"
 	^ < 37 self 'javax.swing.JTable' model > model: model.
 !
-METHOD disableEditing
+METHODS
+disableEditing
 	| columnClass |
 	"void setDefaultEditor( Class<?> columnClass, TableCellEditor cellEditor )
 	 Must call typed FFI primitive to match null argument type correctly.
@@ -14,13 +16,13 @@ METHOD disableEditing
 	columnClass := < 46 JavaObject 'java.lang.Object' >.
 	< 44 nil self 'setDefaultEditor' 'java.lang.Class' columnClass 'javax.swing.DefaultCellEditor' nil >.
 !
-METHOD model
+model
 	^ model.
 !
-METHOD model: aModel
+model: aModel
 	model := aModel.
 !
-METHOD selectedRow
+selectedRow
 	"Return selected row in table, 1-based, 0 if none."
 	"public int getSelectedRow()"
 	^ < 38 SmallInt self 'getSelectedRow' > + 1.

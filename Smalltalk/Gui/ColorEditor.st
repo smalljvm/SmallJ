@@ -1,8 +1,10 @@
 CLASS Object subclass: 'ColorEditor' variables: 'color frame image imageLabel textField scrollBars semaphore' classVariables: ''
-META show: aColor
+CLASSMETHODS
+show: aColor
 	^ self new show: aColor
 !
-METHOD show: aColor
+METHODS
+show: aColor
 	"Display color selection window on argument. Answer selected new color."
 	color := aColor.
 
@@ -13,7 +15,7 @@ METHOD show: aColor
 
 	^ semaphore wait.
 !
-METHOD createFrame
+createFrame
 	|  selectButton framePanel |
 
 	textField := TextField new.
@@ -30,7 +32,7 @@ METHOD createFrame
 	frame setSize: 300 @ 250.
 	frame add: framePanel.
 !
-METHOD createScrollBarsPanel
+createScrollBarsPanel
 	| scrollBarsPanel scrollBar |
 
 	scrollBarsPanel := Panel new layout: ( GridLayout size: 3 @ 1 ).
@@ -45,14 +47,14 @@ METHOD createScrollBarsPanel
 
 	^ scrollBarsPanel.
 !
-METHOD createImageLabel
+createImageLabel
 	image := Image size: 200 @ 200.
 	image setColor: color.
 	image at: 0 @ 0 fillRect: 200 @ 200.
 
 	^ imageLabel := Label new image: image.
 !
-METHOD loadColor
+loadColor
 	"Load the current color into the GUI."
 	textField text: color printString.
 
@@ -65,12 +67,12 @@ METHOD loadColor
 
 	imageLabel repaint.
 !
-METHOD onScrollBarChanged
+onScrollBarChanged
 	"Get new color from changed scrollbar values and update GUI."
 	color := Color red: ( scrollBars at: 1 ) value green: ( scrollBars at: 2 ) value blue: ( scrollBars at: 3 ) value.
 	self loadColor.
 !
-METHOD onSelect
+onSelect
 	"Close frame and return selected color via semaphore."
 	frame close.
 	semaphore set: color.

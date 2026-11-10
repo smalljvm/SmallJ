@@ -1,0 +1,14 @@
+{
+	// Same as VM/.vscode/launch.json: Run / Debug starts the VM in the Smalltalk folder.
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "java",
+			"name": "Launch SmallJApp",
+			"request": "launch",
+			"mainClass": "SmallJApp",
+			"cwd": "${workspaceFolder}/Smalltalk",
+			"preLaunchTask": "Build image"
+		}
+	]
+}

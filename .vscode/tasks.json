@@ -1,0 +1,36 @@
+{
+	// Same as VM/.vscode/tasks.json: the default build task exports Smalltalk/smallj.jar.
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "java (buildArtifact)",
+			"label": "java: exportjar:SmallJ",
+			"mainClass": "SmallJApp",
+			"targetPath": "${workspaceFolder}/Smalltalk/smallj.jar",
+			"elements": [
+				"${compileOutput}",
+				"${dependencies}"
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			// Builds Smalltalk/image.sjim from the .st sources (overwriting it). Runs before Launch SmallJApp.
+			// Runs the script with bash directly. On Windows that is Git Bash, which is not on the PATH.
+			"type": "process",
+			"label": "Build image",
+			"command": "bash",
+			"windows": {
+				"command": "C:/Program Files/Git/bin/bash.exe"
+			},
+			"args": [ "buildImage.sh" ],
+			"options": {
+				"cwd": "${workspaceFolder}/Smalltalk"
+			},
+			"problemMatcher": []
+		}
+	]
+}

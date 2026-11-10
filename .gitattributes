@@ -1,0 +1,8 @@
+# Check out all text files with LF line endings, on every platform and whatever core.autocrlf is set to.
+# Git detects binary files (images, jars, the Smalltalk image) itself and leaves them unchanged.
+* text=auto eol=lf
+
+# Binary files, marked explicitly to be safe.
+*.png binary
+*.jar binary
+*.sjim binary

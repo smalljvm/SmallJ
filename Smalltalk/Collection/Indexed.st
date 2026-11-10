@@ -1,28 +1,29 @@
 CLASS Collection subclass: 'Indexed' variables: '' classVariables: ''
-METHOD at: index
+METHODS
+at: index
 	^ self at: index ifAbsent: [ self error: 'Index out of range.' ]
 !
-METHOD first
+first
 	^ self at: 1.
 !
-METHOD last
+last
 	^ self at: self size.
 !
-METHOD do: aBlock
+do: aBlock
 	^ 1 to: self size do: [ :index |
 		aBlock value: ( self at: index ) ]
 !
-METHOD includesKey: index
+includesKey: index
 	^ index between: 1 and: self size
 !
-METHOD indexOf: element ifAbsent: exceptionBlock
+indexOf: element ifAbsent: exceptionBlock
 	"Return the index of the first occurance of element in self,
 	 or exceptionBlock value if not found."
 	1 to: self size do: [ :i |
 		( element = ( self at: i ) ) ifTrue: [ ^ i ] ].
 	^ exceptionBlock value
 !
-METHOD indexOfLast: element ifAbsent: exceptionBlock
+indexOfLast: element ifAbsent: exceptionBlock
 	"Return the index of the *last* occurance of element in self,
 	 or exceptionBlock value if not found."
 	| index |
@@ -32,18 +33,18 @@ METHOD indexOfLast: element ifAbsent: exceptionBlock
 			index := index - 1 ].
 	^ exceptionBlock value
 !
-METHOD indexOf: element match: matchBlock ifAbsent: exceptionBlock
+indexOf: element match: matchBlock ifAbsent: exceptionBlock
 	"Return index of the first element for which the matching block returns true.
 	 The block should have 2 arguments and is valued with arg1: search element arg2: collection element."
 	1 to: self size do: [ :i |
 		( matchBlock value: element value: ( self at: i ) ) ifTrue: [ ^ i ] ].
 	^ exceptionBlock value
 !
-METHOD reverseDo: aBlock
+reverseDo: aBlock
 	^ ( 1 to: self size ) reverseDo: [ :i |
 		aBlock value: ( self at: i ) ].
 !
-METHOD with: aCollection pad: aValue do: aBlock
+with: aCollection pad: aValue do: aBlock
 	| selfSize argSize |
 	selfSize := self size.
 	argSize := aCollection size.

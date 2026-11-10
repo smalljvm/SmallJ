@@ -1,13 +1,14 @@
 CLASS Object subclass: 'InspectorTab' variables: 'parent object panel stringTextField variablesTable' classVariables: ''
 	"Maintains a single tabbed pane in the Inspector window."
-METHOD parent: aParent show: aObject
+METHODS
+parent: aParent show: aObject
 	"Create new view on aObject"
 	parent := aParent.
 	object := aObject.
 	self createPanel.
 	self loadObject.
 !
-METHOD createPanel
+createPanel
 	panel := Panel new.
 	panel border: ( BorderLayout emptyBorder: ( Insets top: 4 left: 4 bottom: 4 right: 4 ) ).
 	panel layout: ( BorderLayout gap: 0 @ 4 ).
@@ -15,10 +16,10 @@ METHOD createPanel
 	panel add: self createVariablesPanel constraints: BorderLayout center.
 	^ panel.
 !
-METHOD panel
+panel
 	^ panel.
 !
-METHOD createStringPanel
+createStringPanel
 	| stringLabel stringPanel closeButton |
 
 	stringLabel := Label new text: 'String'.
@@ -37,7 +38,7 @@ METHOD createStringPanel
 
 	^ stringPanel.
 !
-METHOD createVariablesPanel
+createVariablesPanel
 	variablesTable := Table new.
 	variablesTable disableEditing.
 	variablesTable model addColumns: #( 'Variable' 'Value' ).
@@ -46,7 +47,7 @@ METHOD createVariablesPanel
 
 	^ ScrollPane view: variablesTable.
 !
-METHOD loadObject
+loadObject
 	| rowData |
 
 	stringTextField text: object printString.
@@ -55,7 +56,7 @@ METHOD loadObject
 		ifTrue: [ self loadIndexed ]
 		ifFalse: [ self loadVariables ].
 !
-METHOD loadIndexed
+loadIndexed
 	"Object to inspect is an indexed collection."
 	| rowData |
 	rowData := Array new: 2.
@@ -64,7 +65,7 @@ METHOD loadIndexed
 		rowData at: 2 put: ( object at: index ) printString.
 		variablesTable model addRow: rowData ].
 !
-METHOD loadVariables
+loadVariables
 	| variables rowData |
 	variables := object class instanceVariables.
 
@@ -74,7 +75,7 @@ METHOD loadVariables
 		rowData at: 2 put: ( Object in: object at: index ) printString.
 		variablesTable model addRow: rowData ].
 !
-METHOD onTableClicked: mouseEvent
+onTableClicked: mouseEvent
 	"Open new inspector tab on double-clicked row."
 	| row newObject |
 	"Check for double-click."

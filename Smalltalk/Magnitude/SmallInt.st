@@ -1,34 +1,36 @@
 CLASS Integer subclass: 'SmallInt' variables: '' classVariables: ''
-META new
+CLASSMETHODS
+new
 	"Can't create this way, return zero."
 	^ 0.
 !
-METHOD * arg
+METHODS
+* arg
 	^ arg multBySmallInt: self.
 !
-METHOD + arg
++ arg
 	^ arg addToSmallInt: self.
 !
-METHOD - arg
+- arg
 	^ arg subtractFromSmallInt: self.
 !
-METHOD < arg
+< arg
 	^ arg lessThanSmallInt: self.
 !
-METHOD = arg
+= arg
 	^ arg equalToSmallInt: self.
 !
-METHOD addToLP: arg
+addToLP: arg
     ^ arg + self asLargeInteger.
 !
-METHOD addToSmallInt: arg
+addToSmallInt: arg
 	"This only gets invoked when overflow occurs."
 	^ arg asLargeInteger + self asLargeInteger.
 !
-METHOD asFloat
+asFloat
 	^ Float fromSmallInt: self.
 !
-METHOD asLargeInteger
+asLargeInteger
 	| newValue n |
 	newValue := List new.
 	n := self abs.
@@ -37,19 +39,19 @@ METHOD asLargeInteger
 	^ self < 0 ifTrue: [ LargeNegative new: newValue asByteArray]
 		ifFalse: [ LargePositive new: newValue asByteArray ].
 !
-METHOD compareToLP: arg
+compareToLP: arg
 	^ self asLargeInteger compareToLP: arg.
 !
-METHOD equalToSmallInt: arg
+equalToSmallInt: arg
 	^ < 14 self arg >.
 !
-METHOD lessThanSmallInt: arg
+lessThanSmallInt: arg
 	^ < 13 arg self >.
 !
-METHOD multByLP: arg
+multByLP: arg
 	^ self * arg.
 !
-METHOD multBySmallInt: arg
+multBySmallInt: arg
 	| result |
    "must check for overflow "
    result := < 15 arg self >.
@@ -57,31 +59,31 @@ METHOD multBySmallInt: arg
 	   result := arg asLargeInteger * self asLargeInteger ].
    ^ result.
 !
-METHOD printString
+printString
 	( self < 0 ) ifTrue: [ ^ '-' + self negated printString ].
 	( self < 10 ) ifTrue: [ ^ ( Char new: ( self + 48 ) ) asString ].
 	^ ( self quo: 10 ) printString + ( self rem: 10 ) printString.
 !
-METHOD quo: arg
+quo: arg
 	(0 = arg) ifTrue: [ ^ self error: 'division by zero' ].
 	^ arg quoWithSmallInt: self
 
 !
-METHOD quoWithSmallInt: arg
+quoWithSmallInt: arg
 	^ <11 arg self>
 !
-METHOD rem: arg
+rem: arg
 	( 0 = arg ) ifTrue: [ ^ self error: 'division by zero' ].
 	^ arg remWithSmallInt: self
 !
-METHOD remWithSmallInt: arg
+remWithSmallInt: arg
 	^ <12 arg self>
 !
-METHOD subtractFromLP: arg
+subtractFromLP: arg
 	" private internal method "
 	^ arg - self asLargeInteger
 !
-METHOD subtractFromSmallInt: arg
+subtractFromSmallInt: arg
 	| r |
 	r := < 16 arg self >.
 	"Check for overflow."
@@ -89,20 +91,20 @@ METHOD subtractFromSmallInt: arg
 		r := arg asLargeInteger - self asLargeInteger ].
 	^ r.
 !
-METHOD timesRepeat: aBlock
+timesRepeat: aBlock
 	| times |
 	times := self.
 	[ times > 0 ] whileTrue: [
 		aBlock value.
 		times := times - 1 ].
 !
-METHOD to: limit
+to: limit
 	^ Interval from: self to: limit by: 1
 !
-METHOD to: limit by: step
+to: limit by: step
 	^ Interval from: self to: limit by: step
 !
-METHOD to: limit do: aBlock
+to: limit do: aBlock
 	"Value aBlock repeatedly with integers in range from self upto limit.
 	 Is optimized case of Interval."
 	| i |

@@ -7,4 +7,4 @@ CLASS JavaObject subclass: 'JavaEvent' variables: '' classVariables: ''
 	 Event types:
  		1 = windowClosing, 2 = buttonAction, 3 = adjustment (scrollbar),
 		4 = mousePressed, 4 = mouseReleased, 5 = mouseMotion (move & drag),
-		7 = listSelection, 8 = mouseClicked"
+		7 = listSelection, 8 = mouseClicked, 9 = treeSelection"

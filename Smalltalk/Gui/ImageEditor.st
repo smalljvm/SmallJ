@@ -1,9 +1,11 @@
 CLASS Object subclass: 'ImageEditor' variables: 'image color semaphore frame colorTextField imageLabel prevPoint' classVariables: ''
 	"Editor for Image objects."
-META show: aImage
+CLASSMETHODS
+show: aImage
 	^ self new show: aImage.
 !
-METHOD show: aImage
+METHODS
+show: aImage
 	image := aImage.
 	color := Color black.
 	semaphore := Semaphore new.
@@ -15,7 +17,7 @@ METHOD show: aImage
 
 	^ semaphore wait.
 !
-METHOD createFrame
+createFrame
 	| closeButton framePanel |
 
 	closeButton := Button new text: 'Close' action: [ :actionEvent | self onClose ].
@@ -30,7 +32,7 @@ METHOD createFrame
 	frame title: 'Image Editor'.
 	frame add: framePanel.
 !
-METHOD createColorPanel
+createColorPanel
 	| colorButton colorPanel |
 
 	colorButton := Button new text: 'Color' action: [ :actionEvent | self onColor ].
@@ -44,7 +46,7 @@ METHOD createColorPanel
 	colorPanel add: colorTextField constraints: BorderLayout center.
 	^ colorPanel.
 !
-METHOD createImagePanel
+createImagePanel
 	"In Java, an image in a frame is displayed as an image icon in a label component."
 	imageLabel := Label new.
 	imageLabel onMousePressed: [ :mouseEvent | self onMousePressed: mouseEvent ].
@@ -52,24 +54,24 @@ METHOD createImagePanel
 	imageLabel onMouseMoved: [ :mouseEvent | self onMouseMoved: mouseEvent ].
 	^ ScrollPane view: imageLabel.
 !
-METHOD loadColor
+loadColor
 	colorTextField text: color printString.
 	image setColor: color.
 !
-METHOD loadImage
+loadImage
 	imageLabel image: image.
 !
-METHOD onColor
+onColor
 	color := ColorEditor show: color.
 	self loadColor.
 !
-METHOD onMousePressed: mouseEvent
+onMousePressed: mouseEvent
 	prevPoint := mouseEvent x @ mouseEvent y.
 !
-METHOD onMouseReleased: mouseEvent
+onMouseReleased: mouseEvent
 	prevPoint := nil.
 !
-METHOD onMouseMoved: mouseEvent
+onMouseMoved: mouseEvent
 	| newPoint |
 	prevPoint ifNotNil: [
 		newPoint := mouseEvent x @ mouseEvent y.
@@ -77,7 +79,7 @@ METHOD onMouseMoved: mouseEvent
 		prevPoint := newPoint.
 		frame repaint ].
 !
-METHOD onClose
+onClose
 	semaphore set: self.
 	frame close.
 !

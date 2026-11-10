@@ -1,13 +1,15 @@
-CLASS Object subclass: 'SystemBrowser' variables: 'frame folderListComponent classListComponent methodTabbedPane instanceMethodListComponent classMethodListComponent sourceScrollPane sourceTextArea compileResultTextField expressionTextField evaluateResultTextField folders selectedFolder classes selectedClass selectedSource' classVariables: ''
-META show
+CLASS Object subclass: 'SystemBrowser' variables: 'frame folderTree classListComponent methodTabbedPane instanceMethodListComponent classMethodListComponent sourceScrollPane sourceTextArea compileResultTextField expressionTextField evaluateResultTextField selectedFolder classes selectedClass selectedSource' classVariables: ''
+CLASSMETHODS
+show
 	^ self new show.
 !
-METHOD show
+METHODS
+show
 	self createFrame.
 	self loadFolders.
 	frame show.
 !
-METHOD createFrame
+createFrame
 	| selectSourceSplitPane framePanel |
 
 	"Splitter bar betweeen select panel and source panel."
@@ -27,7 +29,7 @@ METHOD createFrame
 	frame onClosing: [ :windowEvent | self confirmExit ].
 	frame add: framePanel.
 !
-METHOD createMenuBar
+createMenuBar
 	| fileMenu classMenu menuBar |
 
 	fileMenu := Menu text: 'File'.
@@ -36,6 +38,7 @@ METHOD createMenuBar
 
 	classMenu := Menu text: 'Class'.
 	classMenu add: 'Compile All' action: [ :actionEvent | self compileAll ].
+	classMenu add: 'Test All' action: [ :actionEvent | self testAll ].
 	classMenu add: 'File In' action: [ :actionEvent | self fileInClass ].
 	classMenu add: 'Delete' action: [ :actionEvent | self deleteClass ].
 
@@ -45,7 +48,7 @@ METHOD createMenuBar
 
 	^ menuBar.
 !
-METHOD createSelectPanel
+createSelectPanel
 	"Initialize the folder, class, method selection panel. Sets member variables."
 	| insets gbc00 gbc10 gbc20 selectPanel |
 
@@ -70,34 +73,47 @@ METHOD createSelectPanel
 
 	^ selectPanel.
 !
-METHOD createFolderPanel
+selectRowCount
+	"Return the default height in rows of the folder, class and method panes.
+	 They are in one row of the select panel, so they get the same height.
+	 The split pane gives the remaining height of the frame to the source pane."
+	^ 11.
+!
+createFolderPanel
 	| folderScrollPane |
 
-	folderListComponent := ListComponent new.
-	folderListComponent onSelect: [ :listSelectionEvent | self onFolderSelected ].
+	"The root node of the folder tree is the current working folder. It is hidden, showing its subfolders at the top level."
+	folderTree := Tree new.
+	folderTree rootVisible: false.
+	folderTree showsRootHandles: true.
+	folderTree visibleRowCount: self selectRowCount.
+	folderTree onSelect: [ :treeSelectionEvent | self onFolderSelected ].
 
-	folderScrollPane := ScrollPane view: folderListComponent.
+	folderScrollPane := ScrollPane view: folderTree.
 	folderScrollPane border: ( Border createTitledBorder: 'Folder' ).
 	^ folderScrollPane.
 !
-METHOD createClassPanel
+createClassPanel
 	| classScrollPane |
 
 	classListComponent := ListComponent new.
+	classListComponent visibleRowCount: self selectRowCount.
 	classListComponent onMouseClicked: [ :listSelectionEvent | self onClassSelected ].
 
 	classScrollPane := ScrollPane view: classListComponent.
 	classScrollPane border: ( Border createTitledBorder: 'Class' ).
 	^ classScrollPane.
 !
-METHOD createMethodPanel
+createMethodPanel
 	| instanceMethodScrollPane classMethodScrollPane |
 
 	instanceMethodListComponent := ListComponent new.
+	instanceMethodListComponent visibleRowCount: self selectRowCount.
 	instanceMethodListComponent onMouseClicked: [ :listSelectionEvent | self onInstanceMethodSelected ].
 	instanceMethodScrollPane := ScrollPane view: instanceMethodListComponent.
 
 	classMethodListComponent := ListComponent new.
+	classMethodListComponent visibleRowCount: self selectRowCount.
 	classMethodListComponent onMouseClicked: [ :listSelectionEvent | self onClassMethodSelected ].
 	classMethodScrollPane := ScrollPane view: classMethodListComponent.
 
@@ -108,7 +124,7 @@ METHOD createMethodPanel
 
 	^ methodTabbedPane.
 !
-METHOD createSourcePanel
+createSourcePanel
 	"Initialize the source edit & compile panel. Sets member variables."
 	| insets gbc00 gbc10 gbc20
 	  sourcePanel compilePanel compileButton compileResultLabel |
@@ -152,7 +168,7 @@ METHOD createSourcePanel
 
 	^ sourcePanel.
 !
-METHOD createEvaluatePanel
+createEvaluatePanel
 	"Initialize the expression evaluation & result panel. Sets member variables."
 	| insets gbc00 gbc10 gbc20 gbc01 gbc11
 	  evaluatePanel evaluateButton inspectButton evaluateResultLabel |
@@ -198,28 +214,53 @@ METHOD createEvaluatePanel
 
 	^ evaluatePanel.
 !
-METHOD loadFolders
-	| folder |
-	"Load unique folder names into folderListComponent component."
-	folders := Ordered new.
+loadFolders
+	"Load the folders in the current working folder and its subfolders into folderTree.
+	 Folders of classes that are not in it, like classes filed in from elsewhere,
+	 are added at the top level with their full name."
+	| rootNode folderNames folderName |
+	rootNode := TreeNode userObject: '.'.
+	folderNames := List new.
+	self addFolderNodesIn: '' to: rootNode names: folderNames.
 	Class classes do: [ :class |
-		folder := class sourceFolderName.
-		( folders includes: folder ) ifFalse: [
-			folders add: folder ] ].
-	folderListComponent listData: folders.
+		folderName := class sourceFolderName.
+		( folderName notNil and: [ ( folderNames includes: folderName ) not ] ) ifTrue: [
+			folderNames add: folderName.
+			rootNode add: ( TreeNode userObject: folderName ) ] ].
+	folderTree root: rootNode.
 	self clearSelectedFolder.
 !
-METHOD clearSelectedFolder
+addFolderNodesIn: folderName to: parentNode names: folderNames
+	"Add a node for every subfolder of folderName to parentNode, recursively.
+	 Add the subfolder names to folderNames."
+	| node |
+	( File folderNamesIn: folderName ) do: [ :subfolderName |
+		folderNames add: subfolderName.
+		node := TreeNode userObject: ( File name: subfolderName ) name.
+		parentNode add: node.
+		self addFolderNodesIn: subfolderName to: node names: folderNames ].
+!
+folderNameOf: node
+	"Return the folder name of node in folderTree: the names of the nodes from the root to node, separated by slashes.
+	 The root node itself is not part of the name."
+	| names |
+	names := node userObjectPath.
+	^ ( names from: 3 to: names size ) inject: ( names at: 2 ) into: [ :path :name | path + '/' + name ].
+!
+clearSelectedFolder
 	selectedFolder := nil.
 	classListComponent listData: List new.
 	self clearSelectedClass.
 !
-METHOD onFolderSelected
+onFolderSelected
 	"Set selected folder and load classes from it."
-	selectedFolder := folders at: ( folderListComponent selectedIndex ).
+	| node |
+	node := folderTree selectedNode.
+	node isNil ifTrue: [ ^ self clearSelectedFolder ].
+	selectedFolder := self folderNameOf: node.
 	self loadClasses.
 !
-METHOD loadClasses
+loadClasses
 	"Load classes for selected folder into classListComponent component."
 	| classNames |
 	classes := Ordered new: [ :class1 :class2 | class1 name < class2 name ].
@@ -230,13 +271,13 @@ METHOD loadClasses
 	classListComponent listData: classNames.
 	self clearSelectedClass.
 !
-METHOD clearSelectedClass
+clearSelectedClass
 	selectedClass := nil.
 	instanceMethodListComponent listData: List new.
 	classMethodListComponent listData: List new.
 	sourceTextArea text: ''.
 !
-METHOD onClassSelected
+onClassSelected
 	"Set selected class and load methods from it."
 	selectedClass := classes at: ( classListComponent selectedIndex ).
 	self loadMethods.
@@ -248,29 +289,29 @@ METHOD onClassSelected
 	sourceTextArea caretPosition: 0.
 	sourceTextArea requestFocus.
 !
-METHOD loadMethods
+loadMethods
 	"Load instance and class methods for the selected class."
 	instanceMethodListComponent listData: selectedClass methods asStringArray.
 	classMethodListComponent listData: selectedClass class methods asStringArray.
 !
-METHOD loadSource
+loadSource
 	"Load source fom selected class into the source text area."
 	selectedSource := ( File openRead: selectedClass sourceFileName ) asString.
 	sourceTextArea text: selectedSource.
 !
-METHOD onInstanceMethodSelected
+onInstanceMethodSelected
 	"Set cursor to line number of selected insctance method in source text area."
 	self gotoMethodInSource: (
 		selectedClass methods at:
 			instanceMethodListComponent selectedIndex ).
 !
-METHOD onClassMethodSelected
+onClassMethodSelected
 	"Set cursor to line number of selected class method in source text area."
 	self gotoMethodInSource: (
 		selectedClass class methods at:
 			classMethodListComponent selectedIndex ).
 !
-METHOD gotoMethodInSource: method
+gotoMethodInSource: method
 	"Place the cursor (caret) at the starting line of the method.
 	 Make that line the top in the view of there is enough text behind it to fill the source pane."
 	| textPosition viewPosition |
@@ -283,7 +324,7 @@ METHOD gotoMethodInSource: method
 		"NB: Setting the viewport must be done last, due to a drawing bug in the Java framework."
 		sourceScrollPane viewport viewPosition: viewPosition location. ]
 !
-METHOD saveAndCompile
+saveAndCompile
 	| file |
 	"Save file if it is modified.
 	 Then file it in from disk, just in case it was modified in an external editor like VSCode.
@@ -304,34 +345,48 @@ METHOD saveAndCompile
 	compileResultTextField text: 'Succeeded'.
 	self loadMethods.
 !
-METHOD evaluate
-	"Evaluate the expression in expressionTextField and show the result in evaluateResultTextField."
+evaluate
+	"Evaluate the expression in expressionTextField and show the result in evaluateResultTextField.
+	 On an error, show the error message instead."
 	| result |
 	evaluateResultTextField text: ''.
-	result := expressionTextField text doIt.
+	result := [ expressionTextField text doIt ] onError: [ :message |
+		evaluateResultTextField text: 'Error: ' + message ].
 	evaluateResultTextField text: result printString.
 	^ result.
 !
-METHOD onInspect
+onInspect
 	"Inspect the result of evaluating the expression (see evaluate)."
 	Inspector show: self evaluate.
 !
-METHOD saveImage
+saveImage
 	"Save image and show notification."
 	System saveImage.
 	OptionPane showMessageDialogOn: frame message: 'Image saved.' title: 'Save Image' type: 1.
 !
-METHOD confirmExit
+confirmExit
 	| answer |
 	answer := OptionPane showConfirmDialogOn: frame message: 'Save Image?' title: 'Exiting SmallJ' option: 1.
 	answer ifTrue: [ System saveImage ].
 	answer ifNotNil: [ frame close. System exit: 0 ].	"Yes or No, not Cancel."
 !
-METHOD compileAll
+compileAll
+	"Compile all classes, including new source files in the folder tree (see ClassParser class>>fileInAll)."
 	ClassParser fileInAll.
 	OptionPane showMessageDialogOn: frame message: 'All classes compiled succesfully.' title: 'Compile all classes' type: 1.
+	self loadFolders.
 !
-METHOD fileInClass
+testAll
+	"Run all unit tests (see TestCase class>>runAll) and show the result: OK, or the first failure.
+	 A failure halts the tests and also opens the Debugger (see TestCase>>assert:)."
+	| allPassed |
+	allPassed := [ TestCase runAll ] onError: [ :message |
+		OptionPane showMessageDialogOn: frame message: message title: 'Test All' type: 0 ].
+	allPassed
+		ifTrue: [ OptionPane showMessageDialogOn: frame message: 'All tests OK.' title: 'Test All' type: 1 ]
+		ifFalse: [ OptionPane showMessageDialogOn: frame message: 'Tests failed, see the console.' title: 'Test All' type: 0 ].
+!
+fileInClass
 	| fileChooser fileName |
 	fileChooser := FileChooser new extensionFilter: 'Smallltalk files' extensions: #( 'st' ).
 	fileName := fileChooser showOpenDialog: frame.
@@ -340,7 +395,7 @@ METHOD fileInClass
 	OptionPane showMessageDialogOn: frame message: 'Succesfully filed in: ' + fileName title: 'File In Class' type: 1.
 	self loadFolders.
 !
-METHOD deleteClass
+deleteClass
 	| confirmed className |
 	selectedClass ifNil: [
 		OptionPane showMessageDialogOn: frame message: 'No class selected.' title: 'Delete Class' type: 0.

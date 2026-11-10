@@ -2,35 +2,37 @@ CLASS Integer subclass: 'SmallLong' variables: '' classVariables: ''
 	"Implements Java.lang.Long and long type.
 	 For now, does not automatically convert to other integer types (Small and Large).
 	 The main use of this class is to use it in the FFI."
-META new
+CLASSMETHODS
+new
 	"Can't create this way, return zero."
 	^ self new: 0.
 !
-META new: aSmallInt
+new: aSmallInt
 	^ < 65 self aSmallInt >.
 !
-METHOD = arg
+METHODS
+= arg
 	^ < 62 self arg >.
 !
-METHOD < arg
+< arg
 	^ < 61 self arg >.
 !
-METHOD * arg
+* arg
 	^ < 63 self arg >.
 !
-METHOD + arg
++ arg
 	^ < 58 self arg >.
 !
-METHOD - arg
+- arg
 	^ < 64 self arg >.
 !
-METHOD quo: arg
+quo: arg
 	^ < 59 self arg >.
 !
-METHOD rem: arg
+rem: arg
 	^ < 60 self arg >.
 !
-METHOD printString
+printString
 	"String toString()"
 	^ < 39 String 'java.lang.Long' 'toString' self >.
 !

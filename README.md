@@ -29,9 +29,11 @@ Anyway, performance testing and hotspot optimizations are still to come...
 - The folder "./VSCode" contains an extension with basic syntax coloring support.
   On Windows, run "Deploy.cmd" to deploy it in your VSCode IDE (it's a simple copy).
 - Smalltalk development is done in the "./Smalltalk" folder.
+- smallj.jar (the VM) and image.sjim (the default Smalltalk image) are generated, not stored in git.
+  Create them from the sources by running buildJar.sh and buildImage.sh in the ./Smalltalk folder.
 - SmallJ can be started by selecting Run or Debug from the VSCode workspace in the ./VM folder,
-  or by running SmallJ.jar from the ./Smalltalk folder. The .jar extension should be associated to the OpenJDK VM.
-- The default Smalltalk image file is 'Image.sjim'.
+  or by running smallj.jar (or start.sh) from the ./Smalltalk folder. The .jar extension should be associated to the OpenJDK VM.
+- The default Smalltalk image file is 'image.sjim'.
 - Smalltalk class source files (*.st) are organized in subfolders that could be called packages.
 - By default, the main development window, the System Browser, is shown.
   There, folders, classes and methods can be selected to edit their source.

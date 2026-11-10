@@ -1,25 +1,27 @@
 CLASS JavaObject subclass: 'Semaphore' variables: 'value' classVariables: ''
 	"implements java.util.concurrent.Semaphore.
 	 Additionally holds a value that can be communicated from sender to receiver (set: & wait)."
-META new
+CLASSMETHODS
+new
 	"Semaphore​( int permits )"
 	^ < 37 self 'java.util.concurrent.Semaphore' 0 >.
 !
-METHOD acquire
+METHODS
+acquire
 	"void acquire()
 		throws InterruptedException"
 	< 38 nil self 'acquire' >.
 !
-METHOD release
+release
 	"void release()"
 	< 38 nil self 'release' >.
 !
-METHOD set: aValue
+set: aValue
 	"Set semaphore value and release it."
 	value := aValue.
 	self release.
 !
-METHOD wait
+wait
 	"Wait for semaphore release and return value that might have been set."
 	self acquire.
 	^ value.

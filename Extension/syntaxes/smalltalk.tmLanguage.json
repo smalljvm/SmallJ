@@ -28,7 +28,7 @@
 		"keywords": {
 			"patterns": [
 				{	"name": "keyword.control.smalltalk",
-					"match": "\\b(self|super|nil|true|false|CLASS|META|METHOD)\\b"
+					"match": "\\b(self|super|nil|true|false|CLASS|CLASSMETHODS|METHODS)\\b"
 				}
 			]
 		},

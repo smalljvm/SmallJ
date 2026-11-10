@@ -2,7 +2,8 @@ CLASS Object subclass: 'Debugger' variables: 'startContext frame frameTabbedPane
 	"The debugger GUI window inspects the call (context) stack and argument variables.
 	 It is created by the Object.error: method.
 	 It opens InspectorTab panes in new tabs when variables are double-clicked."
-METHOD show: message
+METHODS
+show: message
 	"Set start context for debugging, skipping the first 3 that are always present: Context.current, Debugger.show, String.error:"
 	startContext := Context current previousContext previousContext previousContext.
 	self createFrame.
@@ -10,7 +11,7 @@ METHOD show: message
 	self loadContexts.
 	frame show.
 !
-METHOD createFrame
+createFrame
 	frameTabbedPane := TabbedPane new.
 	frameTabbedPane addTab: 'Context' component: self createContextTab.
 
@@ -18,7 +19,7 @@ METHOD createFrame
 	frame setSize: 800 @ 400.
 	frame add: frameTabbedPane.
 !
-METHOD createContextTab
+createContextTab
 	| contextTab |
 
 	contextTab := Panel new.
@@ -29,7 +30,7 @@ METHOD createContextTab
 	contextTab add: self createArgumentPane constraints: BorderLayout center.
 	^ contextTab.
 !
-METHOD createErrorPanel
+createErrorPanel
 	| errorLabel errorPanel |
 
 	errorLabel := Label new text: 'Error'.
@@ -44,7 +45,7 @@ METHOD createErrorPanel
 	errorPanel add: errorTextField constraints: BorderLayout center.
 	^ errorPanel.
 !
-METHOD createContextPane
+createContextPane
 	| contextScrollPane |
 
 	contextListComponent := ListComponent new.
@@ -54,7 +55,7 @@ METHOD createContextPane
 	contextScrollPane border: ( Border createTitledBorder: 'Call Stack' ).
 	^ contextScrollPane.
 !
-METHOD createArgumentPane
+createArgumentPane
 	| argumentScrollPane |
 
 	argumentListComponent := ListComponent new.
@@ -64,7 +65,7 @@ METHOD createArgumentPane
 	argumentScrollPane border: ( Border createTitledBorder: 'Self & Arguments' ).
 	^ argumentScrollPane.
 !
-METHOD loadContexts
+loadContexts
 	"Load context methods names into contextListComponent component."
 	|  contextValues context |
 
@@ -80,7 +81,7 @@ METHOD loadContexts
 	contextListComponent selectedIndex: 1.
 	self onContextSelected.
 !
-METHOD onContextSelected
+onContextSelected
 	"Load arguments for the selected context."
 	| context argumentValues |
 
@@ -94,7 +95,7 @@ METHOD onContextSelected
 
 	argumentListComponent listData: argumentValues.
 !
-METHOD onArgumentClicked: mouseEvent
+onArgumentClicked: mouseEvent
 	"Open Inspector window on double clicked argument."
 	| argument |
 	"Check for double click."
@@ -102,14 +103,14 @@ METHOD onArgumentClicked: mouseEvent
 		argument := arguments at: argumentListComponent selectedIndex.
 		self addTab: argument ].
 !
-METHOD addTab: object
+addTab: object
 	"Add new inspector tab on argument."
 	| tab |
 	tab := InspectorTab new parent: self show: object.
 	frameTabbedPane addTab: object class name component: tab panel.
 	frameTabbedPane selectedIndex: frameTabbedPane tabCount.
 !
-METHOD closeSelectedTab
+closeSelectedTab
 	"Close the selected tab.
 	 The contex tab will always remain open becuase it does not have a close button."
 	| index |

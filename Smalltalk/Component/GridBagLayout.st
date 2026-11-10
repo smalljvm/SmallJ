@@ -1,6 +1,7 @@
 CLASS JavaObject subclass: 'GridBagLayout' variables: '' classVariables: ''
 	"Implements java.awt.GridBagLayout."
-META new
+CLASSMETHODS
+new
 	"GridBagLayout()"
 	^ < 37 GridBagLayout 'java.awt.GridBagLayout' >.
 !

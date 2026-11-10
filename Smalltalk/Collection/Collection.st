@@ -1,8 +1,9 @@
 CLASS Magnitude subclass: 'Collection' variables: '' classVariables: ''
-METHOD addAll: aCollection
+METHODS
+addAll: aCollection
    aCollection do: [ :element | self add: element ]
 !
-METHOD asArray
+asArray
 	| newArray index |
 	newArray := Array new: self size.
 	index := 1.
@@ -10,7 +11,7 @@ METHOD asArray
 		index := index + 1 ].
 	^ newArray
 !
-METHOD asByteArray
+asByteArray
 	| newArray index |
 	newArray := ByteArray new: self size.
 	index := 1.
@@ -19,16 +20,16 @@ METHOD asByteArray
 		index := index + 1 ].
 	^ newArray
 !
-METHOD asList
+asList
 	^ List new addAll: self
 !
-METHOD asOrdered
+asOrdered
 	^ Ordered new addAll: self
 !
-METHOD asOrdered: testBlock
+asOrdered: testBlock
 	^ ( Ordered new: testBlock ) addAll: self
 !
-METHOD asString
+asString
 	| newString index |
 	newString := String new: self size.
 	index := 1.
@@ -36,42 +37,42 @@ METHOD asString
 		index := index + 1 ].
 	^ newString
 !
-METHOD collect: transformBlock
+collect: transformBlock
 	^ self inject: List new into: [ :list :element |
 		list add: ( transformBlock value: element ) ]
 !
-METHOD find: testBlock ifAbsent: exceptionBlock
+find: testBlock ifAbsent: exceptionBlock
 	self do: [ :element | ( testBlock value: element ) ifTrue: [ ^ element ] ].
 	^ exceptionBlock value
 !
-METHOD includes: value
+includes: value
 	self do: [ :element | element = value ifTrue: [ ^ true ] ].
 	^ false
 !
-METHOD includesTest: aBlock
+includesTest: aBlock
 	self do: [ :element | ( aBlock value: element ) ifTrue: [ ^ true ] ].
 	^ false
 !
-METHOD inject: value into: binaryBlock | result |
+inject: value into: binaryBlock | result |
 	result := value.
 	self do: [ :element | result := binaryBlock value: result value: element ].
 	^ result
 !
-METHOD isEmpty
+isEmpty
 	"Return true if there are no elements."
 	^ self size = 0.
 !
-METHOD printString
+printString
 	^ ( self inject: '( ' into: [ :str :element | str + element + ' ' ] ) + ' )'
 !
-METHOD reject: testBlock
+reject: testBlock
 	^ self select: [ :x | ( testBlock value: x ) not ]
 !
-METHOD select: testBlock
+select: testBlock
 	^ self inject: List new into: [ :list :element |
 		( testBlock value: element ) ifTrue: [ list add: element ].
 		list ].
 !
-METHOD size
+size
 	^ self inject: 0 into: [ :tally :element | tally + 1 ]
 !

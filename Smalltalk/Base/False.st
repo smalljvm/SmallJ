@@ -1,20 +1,22 @@
 CLASS Boolean subclass: 'False' variables: '' classVariables: ''
-META new
+CLASSMETHODS
+new
 	" there is only one false value "
 	^ false.
 !
-METHOD and: aBlock
+METHODS
+and: aBlock
 	^ false
 !
-METHOD ifTrue: trueBlock ifFalse: falseBlock
+ifTrue: trueBlock ifFalse: falseBlock
 	^ falseBlock value.
 !
-METHOD not
+not
 	^ true.
 !
-METHOD or: aBlock
+or: aBlock
 	^ aBlock value.
 !
-METHOD printString
+printString
 	^ 'false'.
 !

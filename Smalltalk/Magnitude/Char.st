@@ -1,65 +1,67 @@
 CLASS Magnitude subclass: 'Char' variables: 'value' classVariables: ''
-META new: v
+CLASSMETHODS
+new: v
 	"Create and initialize a new char."
 	^ Object in: super new initialize: 'value' with: v
 !
-META newline
+newline
 	"Return newline character."
 	^ self new: 10
 !
-META tab
+tab
 	"Return tab character."
 	^ self new: 9.
 !
-METHOD < aChar
+METHODS
+< aChar
 	^ value < aChar value
 !
-METHOD = aChar
+= aChar
 	^ value = aChar value
 !
-METHOD asString
+asString
 	| r |
 	"Return char as a string value."
 	r := String new: 1.
 	r at: 1 put: self.
 	^ r
 !
-METHOD isAlphabetic
+isAlphabetic
 	^ self isLowerCase or: [ self isUpperCase ]
 !
-METHOD isAlphanumeric
+isAlphanumeric
 	"Are we a letter or a digit?"
 	^ self isAlphabetic or: [ self isDigit ]
 !
-METHOD isBlank
+isBlank
 	"Spaces, tabs and newlines are considered blank."
 	^ value = 32 or: [ value = 9 or: [ value = 10 ] ]
 !
-METHOD isDigit
+isDigit
 	^ self between: $0 and: $9
 !
-METHOD isLowerCase
+isLowerCase
 	^ self between: $a and: $z
 !
-METHOD isUpperCase
+isUpperCase
 	^ self between: $A and: $Z
 !
-METHOD lowerCase
+lowerCase
 	self isUpperCase
 		ifTrue: [ ^ Char new: (value - 65) + 97 ]
 !
-METHOD printString
+printString
 	| r |
 	r := String new: 2.
 	r at: 1 put: $$.
 	r at: 2 put: self.
 	^ r
 !
-METHOD upperCase
+upperCase
 	self isLowerCase ifTrue: [
 		^ Char new: (value - 97) + 65 ].
 !
-METHOD value
+value
   "Return our ascii value as an integer."
   ^ value
 !

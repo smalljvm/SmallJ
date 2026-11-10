@@ -1,39 +1,40 @@
 CLASS JavaObject subclass: 'System' variables: '' classVariables: ''
 	"Implements java.lang.System"
-META in
+CLASSMETHODS
+in
 	"static InputStream in - The standard input stream."
 	^ < 41 JavaObject 'java.lang.System' 'in' >.
 !
-META out
+out
 	"static PrintStream out - The standard output stream."
 	^ < 41 PrintStream 'java.lang.System' 'out' >.
 !
-META err
+err
 	"static PrintStream err - The standard error output stream."
 	^ < 41 PrintStream 'java.lang.System' 'err' >.
 !
-META log: text
+log: text
 	self out println: text.
 !
-META exit: status
+exit: status
 	"public static void exit( int status )"
 	< 39 nil 'java.lang.System' 'exit' status >.
 !
-META imageFileName
+imageFileName
 	^ < 27 >.
 !
-META saveImage
+saveImage
 	"Save image under current file name."
 	self saveImage: self imageFileName
 !
-META saveImage: fileName
+saveImage: fileName
    < 29 fileName >.
 !
-META sleep: time
+sleep: time
 	"Sleep for milliseconds time in argument.
 	 void java.lang.Thread.sleep( long time )."
 	< 45 nil 'java.lang.Thread' 'sleep' 'java.lang.Long' time >
 !
-META currentDirectoryName
+currentDirectoryName
 	^ < 39 String 'java.lang.System' 'getProperty' 'user.dir' >.
 !

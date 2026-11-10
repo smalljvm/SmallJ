@@ -1,43 +1,44 @@
 CLASS Magnitude subclass: 'Number' variables: '' classVariables: ''
-METHOD abs
+METHODS
+abs
 	^ self negative ifTrue: [ self negated ] ifFalse: [ self ]
 !
-METHOD addToFloat: arg
+addToFloat: arg
 	^ arg + self asFloat
 !
-METHOD addToFraction: arg
+addToFraction: arg
 	^ arg asFloat + self asFloat
 !
-METHOD addToSmallInt: arg
+addToSmallInt: arg
 	^ arg asFloat + self
 !
-METHOD divideByFloat: arg
+divideByFloat: arg
 	^ arg / self asFloat
 !
-METHOD divideBySmallInt: arg
+divideBySmallInt: arg
 	^ arg asFloat / self
 !
-METHOD equalToFloat: arg
+equalToFloat: arg
 	^ arg = self asFloat
 !
-METHOD lessThanFloat: arg
+lessThanFloat: arg
 	^ arg < self asFloat
 !
-METHOD multByFloat: arg
+multByFloat: arg
 	^ arg * self asFloat
 !
-METHOD multBySmallInt: arg
+multBySmallInt: arg
 	^ arg asFloat * self
 !
-METHOD negated
+negated
 	^ 0 - self
 !
-METHOD negative
+negative
 	^ self < 0
 !
-METHOD subtractFromFloat: arg
+subtractFromFloat: arg
 	^ arg - self asFloat
 !
-METHOD subtractFromSmallInt: arg
+subtractFromSmallInt: arg
 	^ arg asFloat - self
 !

@@ -1,5 +1,6 @@
 CLASS Object subclass: 'Class' variables: 'name parentClass methods size variables sourceFileName' classVariables: 'classes'
-META addClass: aClass
+CLASSMETHODS
+addClass: aClass
 	"Add new class or update existing one.
 	 Returns updated existing class or otherwise (new) argument class."
 	| existingClass |
@@ -14,50 +15,51 @@ META addClass: aClass
 	existingClass resetSizeAndSubs.
 	^ existingClass.
 !
-META at: aName ifAbsent: noValue
+at: aName ifAbsent: noValue
 	classes do: [ :class |
 		class name = aName ifTrue: [ ^ class ] ].
 	^ noValue value.
 !
-META classes
+classes
 	^ classes
 !
-META classes: aClasses
+classes: aClasses
 	"Dangerous - Set classes variable. Use only for repairing image."
 	classes := aClasses.
 !
-META recompileAllMethods
+recompileAllMethods
 	"This is done to remove references to updated classes."
 	 classes do: [ :class |
 		class class recompileMethods.
 	 	class recompileMethods ].
 !
-META removeClass: className
+removeClass: className
 	classes := ( classes reject: [ :class | class name = className ] ) asArray.
 !
-META resetAllSizes
+resetAllSizes
 	"Recalculate and reset size variable of all classes,
 	 to repair a former bug and to accomodate for changed instance vars"
 	classes do: [ :class |
 		class class resetSize.
 		class resetSize ].
 !
-METHOD addClassVariable: n
+METHODS
+addClassVariable: n
 	"Dangereous - Put new class variable in class."
 	Object in: self add: nil.
 	Object in: self class at: 5 put: ( self class variables add: n ).
 	size := size + 1
 !
-METHOD addInstanceVariable: n
+addInstanceVariable: n
 	variables := variables add: n.
 	size := size + 1
 !
-METHOD allMethods
+allMethods
 	^ parentClass isNil
 		ifTrue: [ methods asList ]
 		ifFalse: [ methods asList addAll: parentClass allMethods ].
 !
-METHOD compileMethod: aString
+compileMethod: aString
 	"Compile aString into method.
 	 Return new method on success, otherwise raise error."
 	| method |
@@ -69,13 +71,13 @@ METHOD compileMethod: aString
 	System out println: 'Compiled method: ' + self name + '.' + method name.
 	^ method.
 !
-METHOD fileIn
+fileIn
 	ClassParser fileIn: sourceFileName.
 !
-METHOD hierarchy
+hierarchy
 	^ self hierarchy: 0.
 !
-METHOD hierarchy: level
+hierarchy: level
 	| result |
 	result := ''.
 	level timesRepeat: [
@@ -85,7 +87,7 @@ METHOD hierarchy: level
 		result := result + ( class hierarchy: level + 1 ) ].
 	^ result.
 !
-METHOD instanceVariables
+instanceVariables
 	"Return variable names and those of our superclasses."
 	| names |
 	parentClass notNil
@@ -95,19 +97,19 @@ METHOD instanceVariables
 		ifTrue: [ names := names + variables ].
 	^ names.
 !
-METHOD methods
+methods
 	^ methods
 !
-METHOD methods: aMethods
+methods: aMethods
 	methods := aMethods.
 !
-METHOD name
+name
 	^ name
 !
-METHOD name: aName
+name: aName
 	name := aName.
 !
-METHOD name: aName parent: aParent variables: aVariables
+name: aName parent: aParent variables: aVariables
 	" private method used for initialization "
 	name := aName.
 	parentClass := aParent.
@@ -115,28 +117,33 @@ METHOD name: aName parent: aParent variables: aVariables
 	methods := Array new: 0.
 	size := parentClass size + variables size
 !
-METHOD new
+new
 	"Return a new instance of ourselves."
 	^ < 7 self size >.
 !
-METHOD parent: aParent
+parent: aParent
 	parentClass := aParent.
 !
-METHOD parseMethod: text
-   ^ ( Parser new text: text instanceVars: self instanceVariables classVars: self class variables ) parse: self.
+parseMethod: text
+	"Compile text into a new method of this class, using the Java compiler in the VM.
+	 Raise error on compile failure."
+	| result |
+	result := < 47 self text >.
+	( result isKindOf: String ) ifTrue: [ self error: result ].
+	^ result.
 !
-METHOD printString
+printString
 	^ name printString
 !
-METHOD recompileMethods
+recompileMethods
 	"This is done to remove references to old, now replaced classes."
 	 self methods do: [ :method |
 	 	self compileMethod: method text ].
 !
-METHOD removeMethod: aMethodName
+removeMethod: aMethodName
 	methods := ( methods select: [ :method | method name ~= aMethodName ] ) asArray.
 !
-METHOD resetSize
+resetSize
 	"Recalculate and reset size variable of this class and parent classes."
 	| parent parentSize variablesSize |
 	parent := self superclass.
@@ -146,7 +153,7 @@ METHOD resetSize
 	< 25 self ( self class size ) >.
 	^ size.
 !
-METHOD resetSizeAndSubs
+resetSizeAndSubs
 	"Reset self size and size of subsclasses
 	 and also for self metaclass and its subclasses."
 	self resetSize.
@@ -154,28 +161,28 @@ METHOD resetSizeAndSubs
 		class class resetSizeAndSubs.
 		class resetSizeAndSubs ].
 !
-METHOD size
+size
 	^ size.
 !
-METHOD sourceFileName
+sourceFileName
 	^ sourceFileName.
 !
-METHOD sourceFileName: aSourceFileName
+sourceFileName: aSourceFileName
 	sourceFileName := File forwardSlashes: aSourceFileName.
 !
-METHOD subclass: aName variables: aVariables classVariables: aClassVariables
+subclass: aName variables: aVariables classVariables: aClassVariables
 	| metaClass class |
 	metaClass := Class new name: 'Meta' + aName printString parent: self class variables: aClassVariables.
 	class := metaClass new name: aName parent: self variables: aVariables.
 	^ Class addClass: class.
 !
-METHOD subclasses
+subclasses
 	^ Class classes select: [ :class | class superclass = self ].
 !
-METHOD superclass
+superclass
 	^ parentClass
 !
-METHOD updateFrom: aClass
+updateFrom: aClass
 	"Private - Set class attributes of self to those of argument class.
 	 This is for changing existing classes on fileIn without."
 
@@ -187,10 +194,10 @@ METHOD updateFrom: aClass
 	size := aClass size.
 	variables := aClass variables.
 !
-METHOD variables
+variables
 	^ variables
 !
-METHOD sourceFolderName
+sourceFolderName
 	"Return the folder part of the source file of this class.
 	 Return '.' if the file is stored locally.
 	 Return nil if the source file name is not set."

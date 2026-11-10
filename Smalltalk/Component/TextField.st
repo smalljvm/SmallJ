@@ -1,5 +1,6 @@
 CLASS TextComponent subclass: 'TextField' variables: '' classVariables: ''
 	"Implements javax.swing.JTextField"
-META new
+CLASSMETHODS
+new
 	^ < 37 TextField 'javax.swing.JTextField' >.
 !

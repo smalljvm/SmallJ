@@ -1,3 +1,6 @@
 {
-	"cmake.configureOnOpen": false
+	"cmake.configureOnOpen": false,
+	// The source roots are the folders with the .java files, because they have no package declaration.
+	"java.project.sourcePaths": [ "src/smallj/core", "src/smallj/objects", "src/smallj/compiler", "src/smallj/image" ],
+	"java.project.referencedLibraries": [ "lib/**/*.jar" ]
 }

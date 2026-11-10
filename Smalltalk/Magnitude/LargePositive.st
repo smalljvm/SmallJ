@@ -1,25 +1,27 @@
 CLASS Integer subclass: 'LargePositive' variables: 'values' classVariables: ''
-META new: v
+CLASSMETHODS
+new: v
    ^ self in: super new at: 1 put: v.
 !
-METHOD * arg
+METHODS
+* arg
 	^ arg multByLP: self.
 !
-METHOD + arg
++ arg
 	^ arg addToLP: self.
 !
-METHOD - arg
+- arg
 	^ self < arg
 		ifTrue: [ ( arg - self ) negated ]
 		ifFalse: [ arg subtractFromLP: self ].
 !
-METHOD < arg
+< arg
 	^ 0 < (arg compareToLP: self)
 !
-METHOD = arg
+= arg
 	^ 0 = (arg compareToLP: self)
 !
-METHOD addToLP: arg
+addToLP: arg
 	| carry nv newValue |
 	carry := 0.
 	newValue := List new.
@@ -30,13 +32,13 @@ METHOD addToLP: arg
 	( carry = 0 ) ifFalse: [ newValue add: carry ].
 	^ LargePositive new: newValue asByteArray.
 !
-METHOD asFloat
+asFloat
 	| r |
 	r := 0 asFloat.
 	values reverseDo: [ :e | r := r * 100 + e ].
 	^ r.
 !
-METHOD compareToLP: arg
+compareToLP: arg
 	| r |
 	r := 0.
 	values with: arg values pad: 0 do: [ :lv :rv |
@@ -44,14 +46,14 @@ METHOD compareToLP: arg
 			[ r := ( lv < rv ) ifTrue: [ -1 ] ifFalse: [ 1 ] ] ].
 	^ r.
 !
-METHOD multByLP: arg
+multByLP: arg
 	| r a b c|
 	r := List new.
 	values reverseDo: [ :e |
 		r := ( ( LargePositive new: ( r addFirst: 0 ) ) + ( arg * e ) ) values asList ].
 	^ LargePositive new: r asByteArray
 !
-METHOD multBySmallInt: arg
+multBySmallInt: arg
 	| carry newValue |
 	" private internal method "
 	arg < 0 ifTrue: [ ^ (self multBySmallInt: arg negated) negated ].
@@ -61,14 +63,21 @@ METHOD multBySmallInt: arg
 	[ carry > 0 ] whileTrue: [ newValue add: (carry rem: 100). carry := carry quo: 100 ].
 	^ LargePositive new: newValue asByteArray
 !
-METHOD negated
+negated
 	^ LargeNegative new: values
 !
-METHOD printString
-	^ values inject: '' into: [ :r :e |
+printString
+	"values holds pairs of decimal digits, least significant first.
+	 Leading zeros of the most significant pair are removed."
+	| digits start |
+	digits := values inject: '' into: [ :r :e |
 		( '00' + e printString last: 2 ) + r ].
+	start := 1.
+	[ start < digits size and: [ ( digits at: start ) = $0 ] ] whileTrue: [
+		start := start + 1 ].
+	^ digits from: start to: digits size.
 !
-METHOD subtractFromLP: arg
+subtractFromLP: arg
 	| borrow newValue |
 	" private internal method,  know we are smaller than arg "
 	borrow := 0. newValue := List new.
@@ -79,6 +88,6 @@ METHOD subtractFromLP: arg
 	^ LargePositive new: newValue asByteArray
 
 !
-METHOD values
+values
 	^ values
 !

@@ -1,26 +1,33 @@
 CLASS Context subclass: 'Block' variables: 'argumentLocation creatingContext oldBytePointer' classVariables: ''
-METHOD fork
+METHODS
+fork
    "Block must not have arguments."
    < 19 self >.
 !
-METHOD value
+onError: errorBlock
+	"Evaluate self and return its value.
+	 If an error is raised while evaluating self, errorBlock is evaluated with the error message
+	 (see Object>>error:). The thread is still halted after that, so this method then does not return."
+	^ self value.
+!
+value
 	"Execute block."
 	< 8 self >.
 !
-METHOD value: a
+value: a
 	"Execute block with 1 argument."
 	< 8 a self >.
 !
-METHOD value: a value: b
+value: a value: b
 	"Execute block with 2 arguments."
 	< 8 a b self >.
 !
-METHOD whileFalse: aBlock
+whileFalse: aBlock
 	self value ifFalse: [
 		aBlock value.
 		^ self whileFalse: aBlock ].
 !
-METHOD whileTrue: aBlock
+whileTrue: aBlock
 	self value ifTrue: [
 		aBlock value.
 		^ self whileTrue: aBlock ].

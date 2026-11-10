@@ -1,32 +1,34 @@
 CLASS Array subclass: 'String' variables: '' classVariables: ''
-META new: aSize
+CLASSMETHODS
+new: aSize
 	^ < 20 String aSize >.
 !
-METHOD + arg
+METHODS
++ arg
 	" optimized by primitive for speed "
 	^ < 24 self ( arg printString ) >.
 !
-METHOD < arg
+< arg
 	^ < 26 self ( arg printString ) >  < 0.
 !
-METHOD = arg
+= arg
 	^ < 26 self ( arg printString ) >  = 0.
 !
-METHOD at: index ifAbsent: exceptionBlock
+at: index ifAbsent: exceptionBlock
 	( self includesKey: index )
 	     ifTrue: [ ^ Char new: < 21 self index > ]
 	     ifFalse: [ ^ exceptionBlock value ]
 !
-METHOD at: index put: char
+at: index put: char
 	( self includesKey: index )	ifFalse: [
 		^ self error: 'String indexing error: ' + index ].
 	< 22 self index ( char value ) >.
 !
-METHOD asWords
+asWords
 	"Return array of strings containing the  words in self separated by spaces."
 	^ ( self asWords: ' ' ) asArray.
 !
-METHOD asWords: separators
+asWords: separators
 	"Return array of strings containing the  words in self,
 	 separated by characters in separators string parameter."
 	| words word |
@@ -46,31 +48,36 @@ METHOD asWords: separators
 		words add: word ].
 	^ words.
 !
-METHOD copy
+copy
 	"Make a clone of ourself."
 	^ < 23 self >.
 !
-METHOD doIt
-	| method |
-	method := Object parseMethod: 'doItCommand ^ ' + self.
+doIt
+	"Compile self as an expression, evaluate it and return its value.
+	 The expression is compiled into a block that is evaluated here,
+	 so it runs on the call stack of the sender and errors reach a Block>>onError: of the sender.
+	 The receiver of the expression, self, is nil."
+	| method block |
+	method := Object parseMethod: 'doItCommand ^ [ ' + self + ' ]'.
 	method notNil ifTrue: [
-		^ Context new perform: method withArguments: ( Array new: 0 ) ].
+		block := Context new perform: method withArguments: ( Array new: 1 ).
+		^ block value ].
 !
-METHOD find: substr
+find: substr
 	1 to: ( self size - substr size + 1 ) do: [ :i |
 		( self from: i size: substr size ) = substr ifTrue: [ ^ i ] ].
    ^ nil.
 !
-METHOD last: n
+last: n
 	^ self from: self size - n + 1 to: self size.
 !
-METHOD printString
+printString
 	^ self.
 !
-METHOD size
+size
 	^ < 4 self >.
 !
-METHOD trim
+trim
 	"Answer new string with leading and trainling spaces removed."
 	| startPos endPos |
 	startPos := 1.
@@ -83,7 +90,7 @@ METHOD trim
 
 	^ self from: startPos to: endPos.
 !
-METHOD asLowerCase
+asLowerCase
 	"Return copy of string with uppercase characters converted tot lower case."
 	| result |
 	result := String new: self size.

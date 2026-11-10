@@ -1,57 +1,64 @@
 CLASS Number subclass: 'Integer' variables: '' classVariables: ''
-METHOD / arg
+METHODS
+/ arg
 	^ arg divideByInteger: self
 !
-METHOD @ y
+@ y
   ^ Point x: self y: y
 !
-METHOD addToFraction: arg
+addToFraction: arg
 	^ arg + (Fraction top: self)
 !
-METHOD addToSmallInt: arg
+addToSmallInt: arg
 	" private internal method "
 	^ arg asLargeInteger + self
 !
-METHOD asHex
-	"Return hexadecimal sting version of self.
+asHex
+	"Return hexadecimal string version of self, with upper case digits, like 'FF' for 255.
 	 Negative numbers give zero."
-	| hex |
-	hex := ''
-	^ self
+	| hexDigits hex remaining |
+	self <= 0 ifTrue: [ ^ '0' ].
+	hexDigits := '0123456789ABCDEF'.
+	hex := ''.
+	remaining := self.
+	[ remaining > 0 ] whileTrue: [
+		hex := ( hexDigits at: ( remaining rem: 16 ) + 1 ) asString + hex.
+		remaining := remaining quo: 16 ].
+	^ hex.
 !
-METHOD asInteger
+asInteger
   ^ self
 !
-METHOD divideByFraction: arg
+divideByFraction: arg
 	^ arg / (Fraction top: self)
 !
-METHOD divideByInteger: arg
+divideByInteger: arg
 	^ Fraction top: arg bottom: self
 !
-METHOD equalToSmallInt: arg
+equalToSmallInt: arg
 	^ arg asLargeInteger = self
 !
-METHOD gcd: x  | n  m |
+gcd: x  | n  m |
 	" euclids gcd algorithm "
 	n := self. m := x.
 	(n <= 0 or: [m <= 0]) ifTrue: [ ^ 1].
 	[ n = m ] whileFalse: [ n < m ifTrue: [ m := m - n ] ifFalse: [ n := n - m ]].
 	^ n
 !
-METHOD lessThanSmallInt: arg
+lessThanSmallInt: arg
 	" private internal method "
 	^ arg asLargeInteger < self
 !
-METHOD multByFraction: arg
+multByFraction: arg
 	^ arg * ( Fraction top: self )
 !
-METHOD random
+random
   ^ ( Float random * self ) asInteger
 !
-METHOD subtractFromFraction: arg
+subtractFromFraction: arg
 	^ arg - (Fraction top: self)
 !
-METHOD subtractFromSmallInt: arg
+subtractFromSmallInt: arg
 	" private method, used internally "
 	^ arg asLargeInteger - self
 !

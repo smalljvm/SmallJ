@@ -1,9 +1,11 @@
 CLASS Component subclass: 'FileChooser' variables: '' classVariables: ''
 	"Implements Java javax.swing.JFileChooser"
-META new
+CLASSMETHODS
+new
 	^ < 37 self 'javax.swing.JFileChooser' > setToCurrentDirectory.
 !
-METHOD extensionFilter: description extensions: extensions
+METHODS
+extensionFilter: description extensions: extensions
 	"Sets the extensions to be selected.
 	 Extensions shoud be a string collection of size >= 2, containing a description string and the extension names, like 'st'"
 	| extensionFilter  |
@@ -12,7 +14,7 @@ METHOD extensionFilter: description extensions: extensions
 	"void setFileFilter( FileFilter filter )"
 	< 38 nil self 'setFileFilter' extensionFilter >.
 !
-METHOD showOpenDialog: parent
+showOpenDialog: parent
 	"Shows open dialog and return filename selected of nil if none."
 	| option file |
 	"int showOpenDialog( Component parent )
@@ -24,12 +26,12 @@ METHOD showOpenDialog: parent
 	file := < 38 File self 'getSelectedFile' >.
 	^ file relativePath.
 !
-METHOD setToCurrentDirectory
+setToCurrentDirectory
 	"Set file chooser to current working directory.
 	 This is the default behavior."
 	self currentDirectory: System currentDirectoryName.
 !
-METHOD currentDirectory: directoryName
+currentDirectory: directoryName
 	"void setCurrentDirectory( File directory )"
 	< 38 nil self 'setCurrentDirectory' ( File name: directoryName ) >
 !

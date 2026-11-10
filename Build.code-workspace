@@ -1,10 +1,15 @@
 {
+	// Launch and build configurations are in .vscode/launch.json and .vscode/tasks.json.
 	"folders": [
 		{
 			"path": "."
 		}
 	],
 	"settings": {
-		"java.dependency.packagePresentation": "hierarchical"
+		"java.dependency.packagePresentation": "hierarchical",
+		// The VM Java sources and libraries, as found automatically in VM/VM.code-workspace.
+		// The source roots are the folders with the .java files, because they have no package declaration.
+		"java.project.sourcePaths": [ "VM/src/smallj/core", "VM/src/smallj/objects", "VM/src/smallj/compiler", "VM/src/smallj/image" ],
+		"java.project.referencedLibraries": [ "VM/lib/**/*.jar" ]
 	}
 }

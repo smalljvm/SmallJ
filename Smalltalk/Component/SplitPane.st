@@ -1,26 +1,28 @@
 CLASS Component subclass: 'SplitPane' variables: '' classVariables: ''
 	"Implements javax.swing.JSplitPane."
-META new
+CLASSMETHODS
+new
 	"JSplitPane()"
 	^ < 37 self 'javax.swing.JSplitPane' >.
 !
-META vertical
+vertical
 	"JSplitPane.VERTICAL_SPLIT"
 	^ 0.
 !
-META horizontal
+horizontal
 	"JSplitPane.HORIZONTAL_SPLIT"
 	^ 1.
 !
-METHOD orientation: orientation
+METHODS
+orientation: orientation
 	"void setOrientation​( int orientation )"
 	< 38 nil self 'setOrientation' orientation >.
 !
-METHOD leftComponent: component
+leftComponent: component
 	"void setLeftComponent( Component component )"
 	< 38 nil self 'setLeftComponent' component >.
 !
-METHOD rightComponent: component
+rightComponent: component
 	"void setRightComponent( Component component )"
 	< 38 nil self 'setRightComponent' component >.
 !
