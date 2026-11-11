@@ -216,6 +216,7 @@ class SmallOperations
 					long longSum = ( long ) selfInt + ( long ) argInt;
 					if( intSum == longSum )
 						return interpreter.context.stackPush( interpreter.image.newInteger( intSum ) );
+					break;      // Overflow: send the + message, which promotes to a larger integer.
 				}
 				default:
 					throw new SmallException( "Illegal sendBinary int param : " + param, interpreter.context );
@@ -243,7 +244,7 @@ class SmallOperations
 			default:
 				throw new SmallException( "Illegal sendBinary param : " + param, interpreter.context );
 		}
-		SmallByteArray messageSelectorObj = new SmallByteArray( null, messageSelector );
+		SmallByteArray messageSelectorObj = new SmallByteArray( interpreter.image.stringClass, messageSelector );
 		interpreter.context.method = interpreter.context.lookupMethod( interpreter.context.getSelf().objClass, messageSelectorObj );
 		interpreter.context = new SmallContext( interpreter.image, interpreter.context, interpreter.context.argumentVars, interpreter.context.method );
 

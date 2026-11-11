@@ -35,7 +35,9 @@ public class SmallBlock extends SmallContext
         data[ stackTopIndex ] = image.smallInts[ 0 ];
         data[ previousContextIndex ] = context.data[ previousContextIndex ];
         data[ argumentLocationIndex ] = image.newInteger( argumentLocation );
-        data[ creatingContextIndex ] = context;
+        // The creating context is the home method context, also for blocks nested in blocks,
+        // so that a block return (^) inside a nested block returns from the method.
+        data[ creatingContextIndex ] = context.objClass == image.blockClass ? context.data[ creatingContextIndex ] : context;
         data[ oldCodesPointerIndex ] = image.newInteger( context.codesPointer );
     }
 

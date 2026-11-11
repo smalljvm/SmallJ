@@ -1,7 +1,4 @@
-import javax.swing.*;
 import java.util.EventObject;
-
-import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 public class SmallThread extends Thread
 {
@@ -28,8 +25,9 @@ public class SmallThread extends Thread
 		block.prepareRun();
 		try {
 			new SmallInterpreter( SmallImage.current ).execute( block, this, myThread );
-		} catch( Exception e ) {
-			JOptionPane.showMessageDialog( null, e, "Exception", ERROR_MESSAGE );
+		} catch( Exception exception ) {
+			System.err.println( "SmallJ: Error in thread " + getName() + ": " + exception );
+			exception.printStackTrace();
 		}
 	}
 }
